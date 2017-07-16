@@ -1,1 +1,9 @@
-/* Empty. Add your own CSS if you like */
+.flex-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.img-container img {
+    width: 100%;
+}

@@ -14,6 +14,10 @@ angular.module("TeamUp").controller('LoginCtrl', function($scope, $state, autent
             if(error) console.log("ERRO");
             else $state.go("app.perfil", {}, {reload: true});
        });
-    };
+	};
+	
+	$scope.signup = function() {
+		console.log('Sign-up ¯\_(ツ)_/¯');
+	}
 
 });
