@@ -4,6 +4,10 @@
     justify-content: start;
 }
 
+.invalid {
+    border: solid 1px red;
+}
+
 .img-container img {
     width: 100%;
 }

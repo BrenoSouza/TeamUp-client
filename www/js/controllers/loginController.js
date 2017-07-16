@@ -1,7 +1,7 @@
-angular.module("TeamUp").controller('LoginCtrl', function($scope, $state, autenticService, SessionService) {
+angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, autenticService, SessionService) {
 
-	$scope.$on('$ionicView.beforeEnter', function(){
-		if(!SessionService.getUser()) {
+	$scope.$on('$ionicView.beforeEnter', function () {
+		if (!SessionService.getUser()) {
 			$scope.user = {};
 			console.log("sem sessao");
 		} else {
@@ -9,15 +9,16 @@ angular.module("TeamUp").controller('LoginCtrl', function($scope, $state, autent
 		}
 	});
 
-    $scope.login = function() {
-        autenticService.login($scope.user, function(error){
-            if(error) console.log("ERRO");
-            else $state.go("app.perfil", {}, {reload: true});
-       });
+	$scope.login = function () {
+		autenticService.login($scope.user, function (error) {
+			if (error) {
+				console.log("ERRO");
+			} else $state.go("app.perfil", {}, { reload: true });
+		});
 	};
-	
-	$scope.signup = function() {
-		console.log('Sign-up ¯\_(ツ)_/¯');
+
+	$scope.goToSignup = function () {
+		$state.go('signup');
 	}
 
 });
