@@ -1,5 +1,8 @@
-angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, autenticService, SessionService) {
+angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, autenticService, SessionService, $document) {
 
+	var inputEmailEl = angular.element(document.getElementById('login-field'))
+	
+	console.log($scope.loginForm);
 	$scope.$on('$ionicView.beforeEnter', function () {
 		if (!SessionService.getUser()) {
 			$scope.user = {};
