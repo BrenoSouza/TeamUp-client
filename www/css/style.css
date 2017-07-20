@@ -6,6 +6,10 @@
     border: solid 1px green;
 }
 
+.img-container img {
+    width: 100%;
+}
+
 .login-form label {
     margin: 5px 0;
     transition: all 0.3s ease;
