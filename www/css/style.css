@@ -1,9 +1,3 @@
-.flex-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-}
-
 .invalid {
     border: solid 1px red;
 }
@@ -17,6 +11,34 @@
     transition: all 0.3s ease;
 }
 
-.img-container img {
-    width: 100%;
+.item-body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-body h3, .item-body h2 {
+    color: grey;
+    margin: 7px;
+}
+
+.item-body img {
+    border: solid #ddd 2px;
+    border-radius: 6px;
+    width: 50%;
+}
+
+.title-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.title-container h2.title-section {
+    color: #001538;
+}
+
+.matches-list .item {
+    color: #00235e;
 }
