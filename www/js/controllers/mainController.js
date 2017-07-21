@@ -4,7 +4,7 @@ angular.module("TeamUp").controller('MainCtrl', function($scope, $state,  $ionic
 	$scope.$on('unauthorizedResponseError', function(event){
 		console.log("unauthorized");
 		if(event.defaultPrevented)
-			return;
+		return;
 
 		event.defaultPrevented = true;
 		autenticService.logout(true);
@@ -19,8 +19,12 @@ angular.module("TeamUp").controller('MainCtrl', function($scope, $state,  $ionic
 		$state.go('app.users', {}, {reload: true});
 	};
 
-  $scope.logout = function () {
-    autenticService.logout();
+	$scope.goToMatches = function () {
+		$state.go('app.matches', {}, {reload: true});
+	};
+
+	$scope.logout = function () {
+		autenticService.logout();
 	};
 
 
