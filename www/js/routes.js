@@ -47,12 +47,12 @@ angular.module("TeamUp").config(function($stateProvider, $urlRouterProvider, $io
         }
     })
 
-    .state('app.matches', {
-        url: "/matches",
+    .state('app.match', {
+        url: "/match",
         views: {
             'menuContent' :{
-                templateUrl: "templates/matches.html",
-                controller: 'MatchesCtrl',
+                templateUrl: "templates/match.html",
+                controller: 'MatchCtrl',
                 cache: false
             }
         }
