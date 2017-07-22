@@ -1,6 +1,8 @@
 * {
     box-sizing: border-box;
+    font-family: 'Roboto';
 }
+
 
 .invalid {
     border: solid 1px red;
@@ -43,7 +45,7 @@
     justify-content: center;
 }
 
-.title-container h2.title-section {
+.title-container .title-section {
     color: #001538;
 }
 

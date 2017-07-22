@@ -9,6 +9,7 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900' rel='stylesheet' type='text/css'> 
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -26,23 +27,23 @@
     <script src="js/app.js"></script>
     <script src="js/routes.js"></script>
 
-    <script src="js/controllers/mainController.js"></script>
-    <script src="js/controllers/loginController.js"></script>
-    <script src="js/controllers/viewProfileController.js"></script>
-    <script src="js/controllers/usersController.js"></script>
-    <script src="js/controllers/signupController.js"></script>
+    <script src="js/controllers/main.controller.js"></script>
+    <script src="js/controllers/login.controller.js"></script>
+    <script src="js/controllers/view-profile.controller.js"></script>
+    <script src="js/controllers/users.controller.js"></script>
+    <script src="js/controllers/signup.controller.js"></script>
     <script src="js/controllers/matches.controller.js"></script>
     <script src="js/controllers/profile.controller.js"></script>
 
 
         <!--<script src="js/controllers/UsersTabController.js"></script>-->
-        <script src="js/services/userService.js"></script>
-        <script src="js/services/autentService.js"></script>
+        <script src="js/services/user.service.js"></script>
+        <script src="js/services/auth.service.js"></script>
         <script src="js/services/matches.service.js"></script>
         <script src="js/interceptors/interceptor.js"></script>
-        <script src="js/interceptors/tokenInterceptor.js"></script>
+        <script src="js/interceptors/token.interceptor.js"></script>
         <script src="js/services/constants.js"></script>
-        <script src="js/services/sessionService.js"></script>
+        <script src="js/services/session.service.js"></script>
   </head>
   <body ng-app="TeamUp" ng-controller="MainCtrl">
         <ion-nav-view cache-view="false"> </ion-nav-view>
