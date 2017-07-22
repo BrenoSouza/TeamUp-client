@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .invalid {
     border: solid 1px red;
 }
@@ -45,4 +49,72 @@
 
 .matches-list .item {
     color: #00235e;
+}
+
+
+/*MATCHES CSS*/
+.matches-content .card {
+    margin: 7px 10px;
+
+}
+.matches-content .title-container {
+    margin: 10px;
+}
+
+ .card-match-row {
+    align-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} 
+
+/*FLOAT-BUTTON*/
+.button-float {
+    background: #387ef5;
+    border-radius: 50% !important;
+    bottom: 20px !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+    color: white !important;
+    position: absolute !important;
+    right: 10px !important;
+    z-index: 12 !important;
+    
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transition: 0.2s linear !important;
+    transition: 0.2s linear !important;
+    -webkit-transition-property: -webkit-transform, all !important;
+    transition-property: transform, all !important;
+    
+}
+
+.button-float:hover {
+    -webkit-transform: translate3d(0, -1px, 0) !important;
+    transform: translate3d(0, -1px, 0) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: #e42112 !important;
+}
+
+.spinner-container {
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.spinner-container .spinner {
+    left: 50%;
+    margin: 0;
+    margin-right: 50%;
+    position: absolute;
+    top: calc(50% - 39px);
+    transform: translate(-50%, -50%);
+}
+
+.spinner-container .spinner svg {
+    height: 60px;
+    width: 60px;
 }

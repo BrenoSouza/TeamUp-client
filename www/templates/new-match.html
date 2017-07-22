@@ -1,0 +1,21 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Nova partida</h1>
+        <button class="button button-clear button-primary" ng-click="newMatchView.hide()">Cancelar</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="card">
+            <label class="item item-input">
+                <input placeholder="Nome da partida" ng-model="_newMatch.name" type="text">
+            </label>
+            <label class="item item-input">
+                <input placeholder="Data" ng-model="_newMatch.date" type="date">
+            </label>
+            <label class="item item-input">
+                <input placeholder="Local da partida" ng-model="_newMatch.address" type="text">
+            </label>
+        </div>
+        <button class="button button-full button-positive" ng-click="createMatch(_newMatch)">Criar</button>
+        NewMatch - {{ _newMatch }}
+    </ion-content>
+</ion-modal-view>

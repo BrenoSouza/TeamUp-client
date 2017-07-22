@@ -1,20 +1,55 @@
-angular.module("TeamUp").controller('MatchesCtrl', function($scope) {
-    $scope.matches = [
-        {
-            name: 'Futsal semanal',
-            date: '15/08/2017'
-        },
-        {
-            name: 'Tênis',
-            date: '20/08/2017'
-        },
-        {
-            name: 'Vôlei',
-            date: '23/08/2017'
-        },
-        {
-            name: 'Natação',
-            date: '23/08/2017'
-        }
-    ];
+angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $ionicModal, matchesService) {
+
+
+    $scope._newMatch = {};
+
+    $scope._resetNewMatch = function() {
+        $scope._newMatch = {
+            name: '',
+            date: new Date(),
+            address: ''
+        };
+    }
+
+    $scope._resetNewMatch();
+
+    matchesService.getMatches().then(function(matches) {
+        $scope.matches = matches;
+    }, function(reason) {
+        console.log('reason ', reason);
+    });
+
+    $ionicModal.fromTemplateUrl('templates/new-match.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.newMatchView = modal;
+    });
+
+    $scope.openNewMatchView = function() {
+        $scope.newMatchView.show();
+    }
+
+    $scope.closeNewMatchView = function() {
+        $scope.newMatchView.hide();
+    }
+
+    $scope.$on('$destroy', function() {
+        $scope.newMatchView.remove();
+    });
+
+    // $scope.$on('newMatchView.hidden', function() {
+
+    // });
+
+    // $scope.$on('newMatchView.removed', function() {
+
+    // });
+
+    $scope.createMatch = function() {
+        // DAR UM POST PARA O SERVIDOR E VER O RESULTADO
+        $scope.matches.push($scope._newMatch);
+        $scope.newMatchView.hide();
+        $scope._resetNewMatch();
+    }
 });
