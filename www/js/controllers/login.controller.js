@@ -1,5 +1,7 @@
 angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, autenticService, SessionService, $document) {
 
+	$scope.login = login;
+	$scope.goToSignup = goToSignup;
 	
 	console.log($scope.loginForm);
 	$scope.$on('$ionicView.beforeEnter', function () {
@@ -11,7 +13,7 @@ angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, auten
 		}
 	});
 
-	$scope.login = function () {
+	function login() {
 		autenticService.login($scope.user, function (error) {
 			if (error) {
 				console.log('ERRO');
@@ -19,7 +21,7 @@ angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, auten
 		});
 	};
 
-	$scope.goToSignup = function () {
+	function goToSignup() {
 		$state.go('signup');
 	}
 

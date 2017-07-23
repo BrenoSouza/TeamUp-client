@@ -1,10 +1,13 @@
 angular.module('TeamUp').factory('matchesService', function ($http, Constants, $q) {
 
-    var getMatch = function (id) {
+    this.getMatch = getMatch;
+    this.getMatches = getMatches;
+
+    function getMatch(id) {
 
     };
 
-    var getMatches = function () {
+    function getMatches() {
 
         //return $http.get(Constants.MATCHES);
 
@@ -43,13 +46,5 @@ angular.module('TeamUp').factory('matchesService', function ($http, Constants, $
         return deferred.promise;
     }
 
-
-
-    var matchesService = {
-        getMatch: getMatch,
-        getMatches: getMatches
-    };
-
-    return matchesService;
-
+    return this;
 });

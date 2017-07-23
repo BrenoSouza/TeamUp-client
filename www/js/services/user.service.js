@@ -1,8 +1,9 @@
 angular.module('TeamUp').factory('UserService', function($http, $localStorage, SessionService, Constants) {
 
-	var User = {};
+	this.getAll = getAll;
+	this.getOne = getOne;
 
-	User.getAll = function (successCb, errorCb) {
+	function getAll(successCb, errorCb) {
 		$http.get(Constants.USER).then(function successCallback(response) {
 			successCb(response.data.users);
 		}, function errorCallback(errResponse) {
@@ -10,13 +11,14 @@ angular.module('TeamUp').factory('UserService', function($http, $localStorage, S
 		});
 	};
 
-	User.getOne = function (id, successCb, errorCb) {
+	function getOne(id, successCb, errorCb) {
 		$http.get(Constants.USER + '/' + id).then(function successCallback(response) {
 			successCb(response.data);
 		}, function errorCallback(errResponse) {
 			errorCb(errResponse);
 		});
 	};
-  	return User;
+	  
+	return this;
 
 });

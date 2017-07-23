@@ -1,6 +1,5 @@
 angular.module("TeamUp").controller('MainCtrl', function ($scope, $state, $ionicSideMenuDelegate, autenticService, SessionService) {
 
-	console.log("Ok")
 	$scope.$on('unauthorizedResponseError', function (event) {
 		console.log("unauthorized");
 		if (event.defaultPrevented)
@@ -12,7 +11,7 @@ angular.module("TeamUp").controller('MainCtrl', function ($scope, $state, $ionic
 
 	$scope.goToPerfil = function () {
 		var userId = (SessionService.getUser()).id;
-		$state.go('app.viewPerfil', { id: userId }, { reload: true });
+		$state.go('app.viewProfile', { id: userId }, { reload: true });
 	};
 
 	$scope.goToUsers = function () {

@@ -1,37 +1,40 @@
 angular.module('TeamUp').factory('SessionService', function($http, $localStorage) {
 
-	var Session = {};
+	this.generateSession = generateSession;
+	this.getUser = getUser;
+	this.setUser = setUser;
+	this.getToken = getToken;
+	this.removeSession = removeSession;
 
-	Session.generateSession = function(user, token) {
+	function generateSession(user, token) {
 		console.log(user);
-			$localStorage.session = {'user': user,
-								 							'token': token };
+			$localStorage.session = {'user': user, 'token': token };
 
 		console.log($localStorage.session);
 	};
 
-	Session.getUser = function() {
+	function getUser() {
 		if($localStorage.session)
 			return $localStorage.session.user;
 
 		return null;
 	};
 
-	Session.setUser = function(user) {
+	function setUser(user) {
 		$localStorage.session.user = user;
 	};
 
-	Session.getToken = function() {
+	function getToken() {
 		if($localStorage.session)
 			return $localStorage.session.token;
 
 		return null;
 	};
 
-	Session.removeSession = function() {
+	function removeSession() {
 		delete $localStorage.session;
 	};
 
-  return Session;
+  return this;
 
 });

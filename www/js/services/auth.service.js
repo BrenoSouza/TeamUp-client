@@ -1,12 +1,14 @@
 angular.module("TeamUp").factory("autenticService", function($http, $state, Constants, SessionService) {
 
-	var autenticacaoService = {};
+	this.login = login;
+	this.logout = logout;
 
-  	autenticacaoService.login = function(user, callback) {
+  	function login(user, callback) {
+		console.log('aqui');
 		authenticate(user, callback);
 	};
 
-	autenticacaoService.logout = function(unauthorizedResponseError) {
+	function logout(unauthorizedResponseError) {
 		if(unauthorizedResponseError){
 			SessionService.removeSession();
 			$state.go("login");
@@ -32,5 +34,5 @@ angular.module("TeamUp").factory("autenticService", function($http, $state, Cons
 		});
 	};
 
-	return autenticacaoService;
+	return this;
 });

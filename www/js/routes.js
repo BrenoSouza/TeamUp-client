@@ -25,12 +25,12 @@ angular.module("TeamUp").config(function ($stateProvider, $urlRouterProvider, $i
             templateUrl: "templates/menu.html"
         })
 
-        .state('app.viewPerfil', {
-            url: "/perfil/:id",
+        .state('app.viewProfile', {
+            url: "/profile/:id",
             views: {
                 'menuContent': {
-                    templateUrl: "templates/view-perfil.html",
-                    controller: 'ViewPerfilCtrl',
+                    templateUrl: "templates/view-profile.html",
+                    controller: 'ViewProfileCtrl',
                     cache: false
                 }
             }
