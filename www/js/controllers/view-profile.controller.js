@@ -27,7 +27,7 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 
 	function closeEditProfileView() {
 		$scope.editProfileView.hide();
-	}	
+	}
 
 	function _resetEditedUser() {
 		$scope._editedUser = {
