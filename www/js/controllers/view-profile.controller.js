@@ -4,15 +4,23 @@ angular.module("TeamUp").controller('ViewProfileCtrl', ViewProfileCtrl);
 function ViewProfileCtrl($scope, $window, $rootScope,
 	$http, $state, $stateParams,
 	$ionicModal, SessionService,
-	UserService, Constants) {
+	UserService, Constants, matchesService) {
 
 
 
 	$scope._editedUser = {};
+
 	$scope._resetEditedUser = _resetEditedUser;
 	$scope.openEditProfileView = openEditProfileView;
 	$scope.closeEditProfileView = closeEditProfileView;
 	$scope.saveChanges = saveChanges;
+
+
+	matchesService.getMatches().then(function (data) {
+		$scope.matches = data;
+	}, function (error) {
+		console.log(error);
+	});
 
 	function saveChanges() {
 		$scope.user.name = $scope._editedUser.name;
