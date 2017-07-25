@@ -1,4 +1,4 @@
-angular.module("TeamUp").config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -26,10 +26,10 @@ angular.module("TeamUp").config(function ($stateProvider, $urlRouterProvider, $i
         })
 
         .state('app.viewProfile', {
-            url: "/profile/:id",
+            url: '/profile/:id',
             views: {
                 'menuContent': {
-                    templateUrl: "templates/view-profile.html",
+                    templateUrl: 'templates/view-profile.html',
                     controller: 'ViewProfileCtrl',
                     cache: false
                 }
@@ -48,7 +48,7 @@ angular.module("TeamUp").config(function ($stateProvider, $urlRouterProvider, $i
         })
 
         .state('app.perfil', {
-            url: "/perfil",
+            url: '/perfil',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/perfil.html',

@@ -1,4 +1,6 @@
-angular.module('TeamUp').factory('SessionService', function($http, $localStorage) {
+angular.module('TeamUp').factory('SessionService', SessionService); 
+
+function SessionService($http, $localStorage) {
 
 	this.generateSession = generateSession;
 	this.getUser = getUser;
@@ -37,4 +39,4 @@ angular.module('TeamUp').factory('SessionService', function($http, $localStorage
 
   return this;
 
-});
+}

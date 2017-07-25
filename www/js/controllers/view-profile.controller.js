@@ -1,10 +1,10 @@
-angular.module("TeamUp").controller('ViewProfileCtrl', ViewProfileCtrl);
+angular.module('TeamUp').controller('ViewProfileCtrl', ViewProfileCtrl);
 
 
 function ViewProfileCtrl($scope, $window, $rootScope,
 	$http, $state, $stateParams,
 	$ionicModal, SessionService,
-	UserService, Constants, matchesService) {
+	UserService, Constants, matchService) {
 
 
 
@@ -16,7 +16,7 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 	$scope.saveChanges = saveChanges;
 
 
-	matchesService.getMatches().then(function (data) {
+	matchService.getMatches().then(function (data) {
 		$scope.matches = data;
 	}, function (error) {
 		console.log(error);

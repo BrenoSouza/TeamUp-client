@@ -1,4 +1,6 @@
-angular.module('TeamUp').factory('Constants', function() {
+angular.module('TeamUp').factory('Constants', Constants);
+
+function Constants() {
     var constants = {};
 
     // Heroku
@@ -7,4 +9,4 @@ angular.module('TeamUp').factory('Constants', function() {
     constants.USER = constants.DOMAIN + '/user';
 
     return constants;
-});
+}

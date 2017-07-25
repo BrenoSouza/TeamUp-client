@@ -1,4 +1,6 @@
-angular.module('TeamUp').factory('UserService', function($http, $localStorage, SessionService, Constants) {
+angular.module('TeamUp').factory('UserService', UserService);
+
+function UserService($http, $localStorage, SessionService, Constants) {
 
 	this.getAll = getAll;
 	this.getOne = getOne;
@@ -21,4 +23,4 @@ angular.module('TeamUp').factory('UserService', function($http, $localStorage, S
 	  
 	return this;
 
-});
+}

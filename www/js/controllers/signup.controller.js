@@ -1,4 +1,6 @@
-angular.module("TeamUp").controller('SignupCtrl', function ($scope, $state, autenticService, SessionService) {
+angular.module('TeamUp').controller('SignupCtrl', SignupCtrl);
+
+function SignupCtrl($scope, $state, authService, SessionService) {
     
     $scope.$on('$ionicView.beforeEnter', function () {
         if (!SessionService.getUser()) {
@@ -12,4 +14,4 @@ angular.module("TeamUp").controller('SignupCtrl', function ($scope, $state, aute
     $scope.signup = function () {
         console.log('it works!!!');
     }
-});
+}
