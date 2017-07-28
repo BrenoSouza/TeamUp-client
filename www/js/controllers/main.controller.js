@@ -11,25 +11,29 @@ function MainCtrl($scope, $state, $ionicSideMenuDelegate, authService, SessionSe
 		authService.logout(true);
 	});
 
-	$scope.goToPerfil = function () {
+	$scope.goToPerfil = function() {
 		var userId = (SessionService.getUser()).id;
 		$state.go('app.viewProfile', { id: userId }, { reload: true });
 	};
 
-	$scope.goToUsers = function () {
+	$scope.goToUsers = function() {
 		$state.go('app.users', {}, { reload: true });
 	};
+
+	$scope.goToFavorites = function() {
+		$state.go('app.favorites', {}, { reload: true });
+	}
 
 	$scope.goToMatches = function() {
 		$state.go('app.matches', {}, { reload: true });
 	}
 
-	$scope.logout = function () {
+	$scope.logout = function() {
 		authService.logout();
 	};
 
 
-	$scope.toggleLeft = function () {
+	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
 	};
 }

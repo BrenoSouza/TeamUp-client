@@ -91,6 +91,17 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
             }
         })
 
+        .state('app.favorites', {
+            url: '/favorites',
+            views: {
+                'favorites': {
+                    templateUrl: 'templates/favorites.html',
+                    controller: 'FavoritesCtrl',
+                    cache: false
+                }
+            }
+        })
+    
         .state('app.perfil', {
             url: '/perfil',
             views: {
