@@ -77,16 +77,28 @@
 }
 
 
+
+/* PROFILE */
+#profile-matches-title {
+    margin-bottom: 0;
+}
+
 /*MATCHES CSS*/
 .matches-content .card {
     margin: 7px 10px;
-
 }
+
 .matches-content .title-container {
     margin: 10px;
 }
 
- .card-match-row {
+#new-match-description {
+    max-height: 100px;
+    min-height: 100px;
+    width: 100%;
+}
+
+.card-match-row {
     align-content: space-between;
     align-items: center;
     display: flex;

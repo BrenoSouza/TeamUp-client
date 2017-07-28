@@ -1,12 +1,14 @@
-angular.module("TeamUp").controller('MainCtrl', function ($scope, $state, $ionicSideMenuDelegate, autenticService, SessionService) {
+angular.module('TeamUp').controller('MainCtrl', MainCtrl);
+
+function MainCtrl($scope, $state, $ionicSideMenuDelegate, authService, SessionService) {
 
 	$scope.$on('unauthorizedResponseError', function (event) {
-		console.log("unauthorized");
+		console.log('unauthorized');
 		if (event.defaultPrevented)
 			return;
 
 		event.defaultPrevented = true;
-		autenticService.logout(true);
+		authService.logout(true);
 	});
 
 	$scope.goToPerfil = function () {
@@ -23,11 +25,11 @@ angular.module("TeamUp").controller('MainCtrl', function ($scope, $state, $ionic
 	}
 
 	$scope.logout = function () {
-		autenticService.logout();
+		authService.logout();
 	};
 
 
 	$scope.toggleLeft = function () {
 		$ionicSideMenuDelegate.toggleLeft();
 	};
-});
+}

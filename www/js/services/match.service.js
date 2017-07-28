@@ -1,4 +1,6 @@
-angular.module('TeamUp').factory('matchesService', function ($http, Constants, $q) {
+angular.module('TeamUp').factory('matchService', matchService);
+
+function matchService($http, Constants, $q) {
 
     this.getMatch = getMatch;
     this.getMatches = getMatches;
@@ -53,21 +55,25 @@ angular.module('TeamUp').factory('matchesService', function ($http, Constants, $
             {
                 name: 'Futsal semanal',
                 date: '15/08/2017',
+                description: 'Vai ser muito legal',
                 id: 1
             },
             {
                 name: 'Tênis',
                 date: '20/08/2017',
+                description: 'Vai ser muito legal',
                 id: 2
             },
             {
                 name: 'Vôlei',
                 date: '23/08/2017',
+                description: 'Vai ser muito legal',
                 id: 3
             },
             {
                 name: 'Natação',
                 date: '23/08/2017',
+                description: 'Vai ser muito legal',
                 id: 4
             }
         ];
@@ -84,4 +90,4 @@ angular.module('TeamUp').factory('matchesService', function ($http, Constants, $
     }
 
     return this;
-});
+}

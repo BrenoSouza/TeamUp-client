@@ -1,9 +1,11 @@
-angular.module("TeamUp").controller('UsersCtrl', function($scope, $http, $state, $ionicModal, autenticService, $rootScope, Constants, SessionService, UserService) {
+angular.module('TeamUp').controller('UsersCtrl', UserCtrl);
+
+function UserCtrl($scope, $http, $state, $ionicModal, authService, $rootScope, Constants, SessionService, UserService) {
 
 	$scope.users = [];
 
 	$scope.$on('$ionicView.beforeEnter', function() {
-		console.log("Usuários");
+		console.log('Usuários');
 		// Inicia o controller com tela de carregamento
 		$rootScope.showLoading();
 
@@ -45,4 +47,4 @@ angular.module("TeamUp").controller('UsersCtrl', function($scope, $http, $state,
   	    });
     };
 
-});
+}

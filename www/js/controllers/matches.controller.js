@@ -3,10 +3,11 @@ angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $io
 
     $scope._newMatch = {};
 
-    $scope._resetNewMatch = function() {
+    $scope._resetNewMatch = function () {
         $scope._newMatch = {
             name: '',
             date: new Date(),
+            description: '',
             address: ''
         };
     }
@@ -17,7 +18,7 @@ angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $io
 
     matchesService.getMatches().then(function(matches) {
         $scope.matches = matches;
-    }, function(reason) {
+    }, function (reason) {
         console.log('reason ', reason);
     });
 
@@ -32,15 +33,15 @@ angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $io
         $scope.newMatchView = modal;
     });
 
-    $scope.openNewMatchView = function() {
+    $scope.openNewMatchView = function () {
         $scope.newMatchView.show();
     }
 
-    $scope.closeNewMatchView = function() {
+    $scope.closeNewMatchView = function () {
         $scope.newMatchView.hide();
     }
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
         $scope.newMatchView.remove();
     });
 
@@ -52,10 +53,10 @@ angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $io
 
     // });
 
-    $scope.createMatch = function() {
+    $scope.createMatch = function () {
         // DAR UM POST PARA O SERVIDOR E VER O RESULTADO
         $scope.matches.push($scope._newMatch);
         $scope.newMatchView.hide();
         $scope._resetNewMatch();
     }
-});
+}

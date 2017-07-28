@@ -1,4 +1,6 @@
-angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, autenticService, SessionService, $document) {
+angular.module('TeamUp').controller('LoginCtrl', LoginCtrl);
+
+function LoginCtrl($scope, $state, authService, SessionService, $document) {
 
 	$scope.login = login;
 	$scope.goToSignup = goToSignup;
@@ -14,7 +16,7 @@ angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, auten
 	});
 
 	function login() {
-		autenticService.login($scope.user, function (error) {
+		authService.login($scope.user, function (error) {
 			if (error) {
 				console.log('ERRO');
 			} else $state.go('app.matches', {}, { reload: true });
@@ -25,4 +27,4 @@ angular.module("TeamUp").controller('LoginCtrl', function ($scope, $state, auten
 		$state.go('signup');
 	}
 
-});
+}
