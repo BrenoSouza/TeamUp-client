@@ -26,10 +26,10 @@ angular.module("TeamUp").config(function ($stateProvider, $urlRouterProvider, $i
         })
 
         .state('app.viewProfile', {
-            url: "/profile/:id",
+            url: '/profile/:id',
             views: {
                 'menuContent': {
-                    templateUrl: "templates/view-profile.html",
+                    templateUrl: 'templates/view-profile.html',
                     controller: 'ViewProfileCtrl',
                     cache: false
                 }
@@ -42,6 +42,17 @@ angular.module("TeamUp").config(function ($stateProvider, $urlRouterProvider, $i
                 'menuContent': {
                     templateUrl: 'templates/matches.html',
                     controller: 'MatchesCtrl',
+                    cache: false
+                }
+            }
+        })
+
+        .state('app.match', {
+            url:'/match/:id',
+            view: {
+                'menuContent': {
+                    templateUrl: 'templates/match.html',
+                    controller: 'MatchCtrl',
                     cache: false
                 }
             }

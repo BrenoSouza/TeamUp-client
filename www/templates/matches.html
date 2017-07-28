@@ -7,7 +7,7 @@
             <h3 class="title-section">Minhas partidas</h3>
         </div>
         <div class="list animate-show-up" ng-if="matches !== undefined">
-            <div class="card" ng-repeat="match in matches">
+            <div class="card" ng-repeat="match in matches" ng-click="goToMatch(match.id)">
                 <div class="item card-match-row">
                     <p>{{ match.name }}</p>
                     <p>{{ match.date | date }}</p>

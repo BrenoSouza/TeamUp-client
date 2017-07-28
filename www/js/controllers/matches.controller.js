@@ -1,4 +1,4 @@
-angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $ionicModal, matchesService) {
+angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $ionicModal, matchesService) {
 
 
     $scope._newMatch = {};
@@ -13,11 +13,17 @@ angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $ionicModal
 
     $scope._resetNewMatch();
 
+    $scope.goToMatch = goToMatch;
+
     matchesService.getMatches().then(function(matches) {
         $scope.matches = matches;
     }, function(reason) {
         console.log('reason ', reason);
     });
+
+    function goToMatch(id) {
+        $state.go('app.match', { id: id }, { reload: true });
+    }
 
     $ionicModal.fromTemplateUrl('templates/new-match.html', {
         scope: $scope,
