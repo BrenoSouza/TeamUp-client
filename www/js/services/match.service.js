@@ -11,21 +11,33 @@ function matchService($http, Constants, $q) {
             {
                 name: 'Futsal semanal',
                 date: '15/08/2017',
+                description: 'Vai ser legal',
+                sport: 'futsal',
+                address: 'Próximo a ufcg',
                 id: 1
             },
             {
                 name: 'Tênis',
                 date: '20/08/2017',
+                description: 'Vai ser legal',
+                sport: 'futsal',
+                address: 'Próximo a ufcg',
                 id: 2
             },
             {
                 name: 'Vôlei',
                 date: '23/08/2017',
+                description: 'Vai ser legal',
+                sport: 'futsal',
+                address: 'Próximo a ufcg',
                 id: 3
             },
             {
                 name: 'Natação',
                 date: '23/08/2017',
+                description: 'Vai ser legal',
+                sport: 'futsal',
+                address: 'Próximo a ufcg',
                 id: 4
             }
         ];
@@ -44,7 +56,7 @@ function matchService($http, Constants, $q) {
         }, 1000);
 
         return deferred.promise;
-    };
+    }
 
     function getMatches() {
 

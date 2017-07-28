@@ -107,6 +107,22 @@
     justify-content: space-between;
 } 
 
+/* MATCH */
+.match-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.match-container .buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.match-container .buttons-container .button {
+    font-size: 12px;
+}
+
 /*FLOAT-BUTTON*/
 .button-float {
     background: #387ef5;

@@ -1,4 +1,7 @@
-angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $ionicModal, matchesService) {
+angular.module("TeamUp").controller('MatchesCtrl', MatchesCtrl);
+
+
+function MatchesCtrl($scope, $state, $ionicModal, matchService) {
 
 
     $scope._newMatch = {};
@@ -8,6 +11,7 @@ angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $io
             name: '',
             date: new Date(),
             description: '',
+            sport: '',
             address: ''
         };
     }
@@ -16,7 +20,7 @@ angular.module("TeamUp").controller('MatchesCtrl', function ($scope, $state, $io
 
     $scope.goToMatch = goToMatch;
 
-    matchesService.getMatches().then(function(matches) {
+    matchService.getMatches().then(function(matches) {
         $scope.matches = matches;
     }, function (reason) {
         console.log('reason ', reason);
