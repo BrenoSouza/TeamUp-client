@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto';
+}
+
+
 .invalid {
     border: solid 1px red;
 }
@@ -22,9 +28,15 @@
     justify-content: center;
 }
 
-.item-body h3, .item-body h2 {
+.item-body h3, .item-body h2, .item-body h4 {
     color: grey;
-    margin: 7px;
+}
+
+.item-body h2.name-container {
+    margin: 7px 7px 0 7px;
+}
+.item-body h4.email-container {
+    margin: 0;
 }
 
 .item-body img {
@@ -33,16 +45,146 @@
     width: 50%;
 }
 
+.extra-info {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 10px;
+}
+
+.extra-info .phone {
+    margin: 0;
+}
+
+.extra-info p {
+    margin: 0;
+}
+
+/********************************************************/
+
 .title-container {
     align-items: center;
     display: flex;
     justify-content: center;
 }
 
-.title-container h2.title-section {
+.title-container .title-section {
     color: #001538;
 }
 
 .matches-list .item {
     color: #00235e;
+}
+
+
+
+/* PROFILE */
+#profile-matches-title {
+    margin-bottom: 0;
+}
+
+/*MATCHES CSS*/
+.matches-content .card {
+    margin: 7px 10px;
+}
+
+.matches-content .title-container {
+    margin: 10px;
+}
+
+#new-match-description {
+    max-height: 100px;
+    min-height: 100px;
+    width: 100%;
+}
+
+.card-match-row {
+    align-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} 
+
+/* MATCH */
+.match-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.match-container .buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.match-container .buttons-container .button {
+    font-size: 12px;
+}
+
+/*FLOAT-BUTTON*/
+.button-float {
+    background: #387ef5;
+    border-radius: 50% !important;
+    bottom: 20px !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+    color: white !important;
+    position: absolute !important;
+    right: 10px !important;
+    z-index: 12 !important;
+    
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transition: 0.2s linear !important;
+    transition: 0.2s linear !important;
+    -webkit-transition-property: -webkit-transform, all !important;
+    transition-property: transform, all !important;
+    
+}
+
+.button-float:hover, .button-float:active {
+    -webkit-transform: translate3d(0, -1px, 0) !important;
+    transform: translate3d(0, -1px, 0) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+.button-float:active {
+    background-color: #0c60ee;
+}
+
+.spinner-container {
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.spinner-container .spinner {
+    left: 50%;
+    margin: 0;
+    margin-right: 50%;
+    position: absolute;
+    top: calc(50% - 39px);
+    transform: translate(-50%, -50%);
+}
+
+.spinner-container .spinner svg {
+    height: 60px;
+    width: 60px;
+}
+
+.animate-show-up.ng-enter, .animate-show-up.ng-leave {
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.animate-show-up.ng-enter,
+.animate-show-up.ng-leave.ng-leave-active {
+    opacity:0;
+}
+
+.animate-show-up.ng-leave,
+.animate-show-up.ng-enter.ng-enter-active {
+    opacity:1;
 }

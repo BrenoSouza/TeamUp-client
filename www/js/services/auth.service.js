@@ -1,21 +1,25 @@
-angular.module("TeamUp").factory("autenticService", function($http, $state, Constants, SessionService) {
+angular.module('TeamUp').factory('authService', authService);
 
-	var autenticacaoService = {};
+function authService($http, $state, Constants, SessionService) {
 
-  	autenticacaoService.login = function(user, callback) {
+	this.login = login;
+	this.logout = logout;
+
+  	function login(user, callback) {
+		console.log('aqui');
 		authenticate(user, callback);
 	};
 
-	autenticacaoService.logout = function(unauthorizedResponseError) {
+	function logout(unauthorizedResponseError) {
 		if(unauthorizedResponseError){
 			SessionService.removeSession();
-			$state.go("login");
+			$state.go('login');
 		}
 
 		$http.post(Constants.LOGOUT).then(function (response) {
-			console.log("deslogou");
+			console.log('deslogou');
 			SessionService.removeSession();
-			$state.go("login");
+			$state.go('login');
 		}, function(response) {
 			return;
 		});
@@ -24,7 +28,7 @@ angular.module("TeamUp").factory("autenticService", function($http, $state, Cons
 	function authenticate(user, callback) {
 		$http.post(Constants.LOGIN_URL, user).then(function (data) {
 			SessionService.generateSession(data.data.user, data.data.token);
-			$state.go("app.perfil");
+			$state.go('app.perfil');
 			callback(false);
 		}, function(response) {
 			console.log(response);
@@ -32,5 +36,5 @@ angular.module("TeamUp").factory("autenticService", function($http, $state, Cons
 		});
 	};
 
-	return autenticacaoService;
-});
+	return this;
+}

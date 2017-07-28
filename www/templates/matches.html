@@ -1,0 +1,21 @@
+<ion-view view-title="Partidas">
+    <ion-content class="matches-content scroll-content ionic-scroll has-header">
+        <div class="spinner-container animate-spinner-in" ng-if="matches === undefined">
+            <ion-spinner icon="android" class="spinner-positive"></ion-spinner>
+        </div>
+        <div class="title-container">
+            <h3 class="title-section">Minhas partidas</h3>
+        </div>
+        <div class="list animate-show-up" ng-if="matches !== undefined">
+            <div class="card" ng-repeat="match in matches">
+                <div class="item card-match-row" ng-click="goToMatch(match.id)">
+                    <p>{{ match.name }}</p>
+                    <p>{{ match.date | date }}</p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <button class="button button-float" ng-click="openNewMatchView()">
+            <i class="icon ion-plus"></i>
+    </button>
+</ion-view>

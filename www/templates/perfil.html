@@ -1,11 +1,9 @@
-<ion-view view-title="">
+<ion-view view-title="Perfil">
   <ion-content>
     <div class="list card">
       <div class="item item-body">
-        <img src="img/profile_default.svg" alt="">
-        <h2>Rafael Klynger</h2>
-        <h3>(83) 9 96354282</h3>
-        <h3>Rua 13 de maio, 35. Bairro Centenário, Campina Grande.</h3>
+        <img src="{{ user.profilePhoto }}" alt="Profile photo">
+        <h2><b>{{ user.name }}</b></h2>
       </div>
     </div>
     <div class="title-container">
