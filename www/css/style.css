@@ -126,6 +126,25 @@
     font-size: 12px;
 }
 
+/* PENDING REQUESTS */
+.pending-requests-container .item-avatar {
+    position: relative;
+}
+
+.pending-requests-container .item-avatar .actions-item-avatar-container {
+    bottom: 35%;
+    position: absolute;
+    right: 10px;
+}
+
+.pending-requests-container .item-avatar .actions-item-avatar-container .icon {
+    cursor: pointer;
+    font-size: 23px;
+    margin: 0 5px;
+}
+
+
+
 /*FLOAT-BUTTON*/
 .button-float {
     background: #387ef5;

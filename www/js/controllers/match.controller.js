@@ -1,7 +1,7 @@
 angular.module('TeamUp').controller('MatchCtrl', MatchCtrl);
 
 
-function MatchCtrl($scope, $state, $ionicModal, matchService) {
+function MatchCtrl($scope, $state, $ionicModal, matchService, $window) {
 
     $scope.match = {};
     $scope._editedMatch = {};
@@ -9,9 +9,12 @@ function MatchCtrl($scope, $state, $ionicModal, matchService) {
     // $scope.isFloatActive = false;
     $scope.actionBarButtonText = 'Sair';
 
-
     $scope.leaveMatch = leaveMatch;
     $scope.barButtonAction = barButtonAction;
+
+    // pending-requests functions
+    $scope.acceptRequest = acceptRequest;
+    $scope.rejectRequest = rejectRequest;
 
     // edit-match functions
     $scope._resetEditedMatch = _resetEditedMatch;
@@ -19,13 +22,97 @@ function MatchCtrl($scope, $state, $ionicModal, matchService) {
     $scope.closeEditMatchView = closeEditMatchView;
     $scope.saveChanges = saveChanges;
 
+    // lista temporária
+    _pendingRequests = [
+        {
+            name: 'Rafael',
+            id: 1
+        },
+        {
+            name: 'Klynger',
+            id: 2
+        },
+        {
+            name: 'Silva',
+            id: 3
+        },
+        {
+            name: 'Dantas',
+            id: 4
+        },
+        {
+            name: 'José',
+            id: 5
+        },
+        {
+            name: 'Souza',
+            id: 6
+        }
+    ];
+
+    _members = [
+        {
+            name: 'Ronaldo',
+            id: 7
+        },
+        {
+            name: 'Medeiros',
+            id: 8
+        },
+        {
+            name: 'Vinicius',
+            id: 9
+        },
+        {
+            name: 'Thierry'
+            ,
+            id: 10
+        },
+        {
+            name: 'Heitor',
+            id: 11
+        },
+        {
+            name: 'Jose Souza',
+            id: 12
+        }
+    ];
 
     matchService.getMatch($state.params.id).then(function (match) {
         $scope.match = match;
+        $scope.match.pendingRequests = _pendingRequests;
+        $scope.match.members = _members;
         $scope._resetEditedMatch();
     }, function (error) {
         console.log('error ', error);
     });
+
+    function rejectRequest(id) {
+
+        const pendingRequests = $scope.match.pendingRequests;
+        for (var i = 0; i < pendingRequests.length; i++) {
+            if (pendingRequests[i].id === id) {
+                delete pendingRequests[i];
+                break;
+            }
+        }
+        $window.location.reload();
+    }
+
+    function acceptRequest(id) {
+        const pendingRequests = $scope.match.pendingRequests;
+        var user;
+        for (var i = 0; i < pendingRequests.length; i++) {
+            if (pendingRequests[i].id === id) {
+                user = pendingRequests[i];
+                delete pendingRequests[i];
+                break;
+            }
+        }
+
+        $scope.match.members.push(user);
+        $window.location.reload();
+    }
 
     function defineActionLeaveOrDeleteMatch() {
         $scope.actionBarButtonText = 'Excluir Partida';

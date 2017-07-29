@@ -1,21 +1,17 @@
 <ion-view title="Pendentes">
-    <ion-nav-buttons side="right">
+    <!-- <ion-nav-buttons side="right">
         <button class="button button-clear" ng-click="barButtonAction()">Excluir partida</button>
-    </ion-nav-buttons>
-    <ion-content class="padding">
+    </ion-nav-buttons> -->
+    <ion-content class="padding pending-requests-container">
         <h4 class="section-title">Pendentes</h4>
         <div class="card list">
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Max Brito
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Éric da Silva
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Fillype Cardoso
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Pablo Silva
+            <div class="item item-avatar" ng-repeat="user in match.pendingRequests">
+                <img src="img/profile_default.svg">
+                <h2>{{ user.name }}</h2>
+                <div class="actions-item-avatar-container">
+                    <i class="icon ion-checkmark-round" ng-click="acceptRequest(user.id)"></i>
+                    <i class="icon ion-close-round" ng-click="rejectRequest(user.id)"></i>
+                </div>
             </div>
         </div>
     </ion-content>
