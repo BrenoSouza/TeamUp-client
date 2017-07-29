@@ -4,6 +4,7 @@ function authService($http, $state, Constants, SessionService) {
 
 	this.login = login;
 	this.logout = logout;
+	this.signup = signup;
 
   	function login(user, callback) {
 		console.log('aqui');
@@ -24,6 +25,10 @@ function authService($http, $state, Constants, SessionService) {
 			return;
 		});
 	};
+
+	function signup(user) {
+		return $http.post(Constants.SIGNUP, user);
+	}
 
 	function authenticate(user, callback) {
 		$http.post(Constants.LOGIN_URL, user).then(function (data) {

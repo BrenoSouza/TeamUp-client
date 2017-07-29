@@ -25,7 +25,6 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 	function saveChanges() {
 		$scope.user.name = $scope._editedUser.name;
 		$scope.user.phone = $scope._editedUser.phone;
-		console.log('fodaci');
 		$scope.editProfileView.hide();
 	}
 
