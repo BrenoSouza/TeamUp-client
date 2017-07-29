@@ -1,4 +1,4 @@
-angular.module("TeamUp").controller('MatchesCtrl', MatchesCtrl);
+angular.module('TeamUp').controller('MatchesCtrl', MatchesCtrl);
 
 
 function MatchesCtrl($scope, $state, $ionicModal, matchService) {

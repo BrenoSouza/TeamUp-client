@@ -3,7 +3,6 @@
     font-family: 'Roboto';
 }
 
-
 .invalid {
     border: solid 1px red;
 }
@@ -14,6 +13,10 @@
 
 .img-container img {
     width: 100%;
+}
+
+.margin-title-top {
+    margin-top: 10px;
 }
 
 .login-form label {
@@ -92,7 +95,7 @@
     margin: 10px;
 }
 
-#new-match-description {
+.match-description {
     max-height: 100px;
     min-height: 100px;
     width: 100%;
@@ -151,6 +154,10 @@
 
 .button-float:active {
     background-color: #0c60ee;
+}
+
+#match-details__float-edit {
+    bottom: 60px !important;
 }
 
 .spinner-container {

@@ -1,5 +1,11 @@
 <ion-view title="Detalhes">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="barButtonAction()">{{ actionBarButtonText }}</button>
+    </ion-nav-buttons>
     <ion-content>
+        <div class="title-container margin-title-top">
+            <h3 class="title-section">{{ match.name }}</h3>
+        </div>
         <div class="card list">
             <div class="item">
                 Local: {{ match.address }}
@@ -15,4 +21,15 @@
             </div>
         </div>
     </ion-content>
+
+
+    <button id="match-details__float-edit" class="button button-float" ng-click="openEditMatchView()"><i class="icon ion-edit"></i></button>
+    <!-- <div ng-if="isFloatActive" class="animate-show-up">
+        <button id="match-details__float-edit" class="button button-float" ng-click=""><i class="icon ion-navicon-round"></i></button>
+        <button id="match-details__float-delete" class="button button-float" ng-click=""><i class="icon ion-navicon-round"></i></button>
+    </div>
+    <button id="match-details__float-actions" class="button button-float" ng-click="toggleActionsFloatButton()">
+        <i class="icon ion-navicon-round" ng-if="!isFloatActive"></i>
+        <i class="icon ion-close-round" ng-if="isFloatActive"></i>
+    </button> -->
 </ion-view>
