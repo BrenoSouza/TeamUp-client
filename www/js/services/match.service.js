@@ -1,9 +1,13 @@
 angular.module('TeamUp').factory('matchService', matchService);
 
-function matchService($http, Constants, $q) {
+function matchService($http, Constants, $q, SessionService) {
 
     this.getMatch = getMatch;
     this.getMatches = getMatches;
+    this.getMyMatches = getMyMatches;
+    this.addNewMatch = addNewMatch;
+
+    console.log('session ', SessionService.getUser());
 
     function getMatch(id) {
         // CÓDIGO TEMPORÁRIO
@@ -59,46 +63,15 @@ function matchService($http, Constants, $q) {
     }
 
     function getMatches() {
+        return $http.get(Constants.MATCHES_LIST);
+    }
 
-        //return $http.get(Constants.MATCHES);
+    function getMyMatches() {
+        return $http.get(Constants.MY_MATCHES);
+    }
 
-        // CÓDIGO TEMPORÁRIO
-        const matches = [
-            {
-                name: 'Futsal semanal',
-                date: '15/08/2017',
-                description: 'Vai ser muito legal',
-                id: 1
-            },
-            {
-                name: 'Tênis',
-                date: '20/08/2017',
-                description: 'Vai ser muito legal',
-                id: 2
-            },
-            {
-                name: 'Vôlei',
-                date: '23/08/2017',
-                description: 'Vai ser muito legal',
-                id: 3
-            },
-            {
-                name: 'Natação',
-                date: '23/08/2017',
-                description: 'Vai ser muito legal',
-                id: 4
-            }
-        ];
-
-        const deferred = $q.defer();
-
-        setTimeout(function () {
-            deferred.notify('Fetching data...');
-            deferred.resolve(matches);
-        }, 1000);
-
-
-        return deferred.promise;
+    function addNewMatch(match) {
+        return $http.post(Constants.MATCH, match);
     }
 
     return this;

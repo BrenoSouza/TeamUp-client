@@ -20,10 +20,16 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
 
     $scope.goToMatch = goToMatch;
 
-    matchService.getMatches().then(function(matches) {
-        $scope.matches = matches;
+    matchService.getMatches().then(function (matches) {
+        $scope.matches = matches.data;
+        console.log('matches ', matches);
     }, function (reason) {
         console.log('reason ', reason);
+    });
+
+    matchService.getMyMatches().then(function(response) {
+        $scope.myMatches = response.data;
+        console.log('response.data ', response.data);
     });
 
     function goToMatch(id) {
@@ -58,9 +64,22 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
     // });
 
     $scope.createMatch = function () {
-        // DAR UM POST PARA O SERVIDOR E VER O RESULTADO
-        $scope.matches.push($scope._newMatch);
-        $scope.newMatchView.hide();
-        $scope._resetNewMatch();
+
+        var newMatch = {
+            name: $scope._newMatch.name,
+            date: $scope._newMatch.date,
+            description: $scope._newMatch.description,
+            sport: $scope._newMatch.sport,
+            local: $scope._newMatch.address,
+        };
+        console.log('nova partida ', newMatch);
+        matchService.addNewMatch(newMatch).then(function (response) {
+            $scope.matches.push(newMatch);
+            $scope.newMatchView.hide();
+            $scope._resetNewMatch();
+        }, function(error) {
+            console.log('#deuRuim');
+        });
+
     }
 }
