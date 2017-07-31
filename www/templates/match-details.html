@@ -1,4 +1,4 @@
-<ion-view title="Detalhes">
+<ion-view title="Partida">
     <ion-nav-buttons side="right">
         <button class="button button-clear" ng-click="barButtonAction()">{{ actionBarButtonText }}</button>
     </ion-nav-buttons>
@@ -11,7 +11,7 @@
                 Local: {{ match.address }}
             </div>
             <div class="item">
-                Data: {{ match.date }}
+                Data: {{ match.date | date }}
             </div>
             <div class="item">
                 Esporte: {{ match.sport }}
@@ -22,8 +22,10 @@
         </div>
     </ion-content>
 
+    <button id="match-details__float-edit" class="button button-float" ng-click="openEditMatchView()" ng-if="_user.id === match.idOwner">
+        <i class="icon ion-edit"></i>
+    </button>
 
-    <button id="match-details__float-edit" class="button button-float" ng-click="openEditMatchView()"><i class="icon ion-edit"></i></button>
     <!-- <div ng-if="isFloatActive" class="animate-show-up">
         <button id="match-details__float-edit" class="button button-float" ng-click=""><i class="icon ion-navicon-round"></i></button>
         <button id="match-details__float-delete" class="button button-float" ng-click=""><i class="icon ion-navicon-round"></i></button>

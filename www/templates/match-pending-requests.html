@@ -1,18 +1,20 @@
 <ion-view title="Pendentes">
-    <!-- <ion-nav-buttons side="right">
-        <button class="button button-clear" ng-click="barButtonAction()">Excluir partida</button>
-    </ion-nav-buttons> -->
     <ion-content class="padding pending-requests-container">
-        <h4 class="section-title">Pendentes</h4>
-        <div class="card list">
-            <div class="item item-avatar" ng-repeat="user in match.pendingRequests">
-                <img src="img/profile_default.svg">
-                <h2>{{ user.name }}</h2>
-                <div class="actions-item-avatar-container">
-                    <i class="icon ion-checkmark-round" ng-click="acceptRequest(user.id)"></i>
-                    <i class="icon ion-close-round" ng-click="rejectRequest(user.id)"></i>
+        <div ng-if="match.guestsRequests.length > 0">
+            <h4 class="section-title">Pendentes</h4>
+            <div class="card list">
+                <div class="item item-avatar" ng-repeat="user in match.guestsRequests">
+                    <img src="img/profile_default.svg">
+                    <h2>{{ user.name }}</h2>
+                    <div class="actions-item-avatar-container">
+                        <i class="icon ion-checkmark-round" ng-click="acceptRequest(user.id)"></i>
+                        <i class="icon ion-close-round" ng-click="rejectRequest(user.id)"></i>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div ng-if="match.guestsRequests.length === 0">
+            Não convites pendentes para participar dessa partida.
         </div>
     </ion-content>
 </ion-view>

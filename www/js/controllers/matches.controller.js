@@ -5,7 +5,8 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
 
 
     $scope._newMatch = {};
-
+    $scope.goToMatch = goToMatch;
+    
     $scope._resetNewMatch = function () {
         $scope._newMatch = {
             name: '',
@@ -18,22 +19,18 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
 
     $scope._resetNewMatch();
 
-    $scope.goToMatch = goToMatch;
-
-    matchService.getMatches().then(function (matches) {
-        $scope.matches = matches.data;
-        console.log('matches ', matches);
+    matchService.getMatches().then(function (response) {
+        $scope.matches = response.data;
     }, function (reason) {
         console.log('reason ', reason);
     });
 
     matchService.getMyMatches().then(function(response) {
         $scope.myMatches = response.data;
-        console.log('response.data ', response.data);
     });
 
     function goToMatch(id) {
-        $state.go('app.match', { id: id }, { reload: true });
+        $state.go('app.match.details', { id: id }, { reload: true });
     }
 
     $ionicModal.fromTemplateUrl('templates/new-match.html', {
@@ -50,7 +47,7 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
     $scope.closeNewMatchView = function () {
         $scope.newMatchView.hide();
     }
-
+    
     $scope.$on('$destroy', function () {
         $scope.newMatchView.remove();
     });
@@ -74,7 +71,7 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
         };
         console.log('nova partida ', newMatch);
         matchService.addNewMatch(newMatch).then(function (response) {
-            $scope.matches.push(newMatch);
+            $scope.myMatches.push(newMatch);
             $scope.newMatchView.hide();
             $scope._resetNewMatch();
         }, function(error) {

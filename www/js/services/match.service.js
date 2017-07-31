@@ -1,65 +1,40 @@
 angular.module('TeamUp').factory('matchService', matchService);
 
-function matchService($http, Constants, $q, SessionService) {
+function matchService($http, Constants, $q) {
 
     this.getMatch = getMatch;
     this.getMatches = getMatches;
     this.getMyMatches = getMyMatches;
     this.addNewMatch = addNewMatch;
+    this.matchParser = matchParser;
 
-    console.log('session ', SessionService.getUser());
 
     function getMatch(id) {
-        // CÓDIGO TEMPORÁRIO
-        const matches = [
-            {
-                name: 'Futsal semanal',
-                date: '15/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 1
-            },
-            {
-                name: 'Tênis',
-                date: '20/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 2
-            },
-            {
-                name: 'Vôlei',
-                date: '23/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 3
-            },
-            {
-                name: 'Natação',
-                date: '23/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 4
-            }
-        ];
+        return $http.get(Constants.MATCH + '/' + id.toString()); ;
+    }
 
-        const deferred = $q.defer();
+    function matchParser(response) {
+        const match = {
+            date: response.date,
+            description: response.description,
+            guests: response.guests,
+            guestsRequests: response.guestsRequests,
+            sport: response.sport,
+            idOwner: response.idOwner,
+            id: response.id,
+            address: response.local,
+            name: 'Nome mockado'
+        };
 
-        setTimeout(function() {
-            deferred.notify('Fetching data...');
-            var match = matches[0];
-            for(var i = 0; i < matches.length; i++) {
-                if(matches[i].id === id) {
-                    match = matches[i];
-                }
-            }
-            deferred.resolve(match);
-        }, 1000);
+        if(response.guests == null) {
+            match.guests = [];
+        }
 
-        return deferred.promise;
+        if(response.guestsRequests == null) {
+            match.guestsRequests = [];
+        }
+
+        return match
     }
 
     function getMatches() {

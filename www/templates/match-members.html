@@ -1,31 +1,16 @@
 <ion-view title="Membros">
-    <ion-nav-buttons side="right">
-        <button class="button button-clear" ng-click="barButtonAction()">{{ actionBarButtonText }}</button>
-    </ion-nav-buttons>
     <ion-content class="padding">
-        <h4 class="section-title">Confirmados</h4>
-        <div class="card list">
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Rafael Klynger
+        <div ng-if="match.guests.length > 0">
+            <h4 class="section-title">Confirmados</h4>
+            <!-- RODAR NG-REPEAT QUANDO A LISTA TIVER ALGUM USUÁRIO -->
+            <div class="card list">
+                <div class="item item-icon-left">
+                    <i class="icon ion-person"></i> Rafael Klynger
+                </div>
             </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Ronaldo Medeiros
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Fernando Souza
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Breno Gonçalo
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Ricardo Francisco
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> Matheus de Souza
-            </div>
-            <div class="item item-icon-left">
-                <i class="icon ion-person"></i> José Rafael
-            </div>
+        </div>
+        <div ng-if="match.guests.length === 0">
+            Não há pessoas confirmadas nessa partida ainda.
         </div>
     </ion-content>
 </ion-view>

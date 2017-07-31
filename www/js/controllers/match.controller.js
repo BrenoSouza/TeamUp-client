@@ -1,15 +1,13 @@
 angular.module('TeamUp').controller('MatchCtrl', MatchCtrl);
 
 
-function MatchCtrl($scope, $state, $ionicModal, matchService, $window) {
+function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $window) {
 
     $scope.match = {};
     $scope._editedMatch = {};
+    $scope._user = SessionService.getUser();
 
     // $scope.isFloatActive = false;
-    $scope.actionBarButtonText = 'Sair';
-
-    $scope.leaveMatch = leaveMatch;
     $scope.barButtonAction = barButtonAction;
 
     // pending-requests functions
@@ -22,77 +20,21 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, $window) {
     $scope.closeEditMatchView = closeEditMatchView;
     $scope.saveChanges = saveChanges;
 
-    // lista temporária
-    _pendingRequests = [
-        {
-            name: 'Rafael',
-            id: 1
-        },
-        {
-            name: 'Klynger',
-            id: 2
-        },
-        {
-            name: 'Silva',
-            id: 3
-        },
-        {
-            name: 'Dantas',
-            id: 4
-        },
-        {
-            name: 'José',
-            id: 5
-        },
-        {
-            name: 'Souza',
-            id: 6
-        }
-    ];
-
-    _members = [
-        {
-            name: 'Ronaldo',
-            id: 7
-        },
-        {
-            name: 'Medeiros',
-            id: 8
-        },
-        {
-            name: 'Vinicius',
-            id: 9
-        },
-        {
-            name: 'Thierry'
-            ,
-            id: 10
-        },
-        {
-            name: 'Heitor',
-            id: 11
-        },
-        {
-            name: 'Jose Souza',
-            id: 12
-        }
-    ];
-
-    matchService.getMatch($state.params.id).then(function (match) {
-        $scope.match = match;
-        $scope.match.pendingRequests = _pendingRequests;
-        $scope.match.members = _members;
+    matchService.getMatch($state.params.id).then(function (response) {
+        $scope.match = matchService.matchParser(response.data);
+        console.log('match ', $scope.match);
         $scope._resetEditedMatch();
+        defineBarbuttonText();
     }, function (error) {
         console.log('error ', error);
     });
 
     function rejectRequest(id) {
 
-        const pendingRequests = $scope.match.pendingRequests;
-        for (var i = 0; i < pendingRequests.length; i++) {
-            if (pendingRequests[i].id === id) {
-                delete pendingRequests[i];
+        const guestsRequests = $scope.match.guestsRequests;
+        for (var i = 0; i < guestsRequests.length; i++) {
+            if (guestsRequests[i].id === id) {
+                delete guestsRequests[i];
                 break;
             }
         }
@@ -100,12 +42,12 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, $window) {
     }
 
     function acceptRequest(id) {
-        const pendingRequests = $scope.match.pendingRequests;
+        const guestsRequests = $scope.match.guestsRequests;
         var user;
-        for (var i = 0; i < pendingRequests.length; i++) {
-            if (pendingRequests[i].id === id) {
-                user = pendingRequests[i];
-                delete pendingRequests[i];
+        for (var i = 0; i < guestsRequests.length; i++) {
+            if (guestsRequests[i].id === id) {
+                user = guestsRequests[i];
+                delete guestsRequests[i];
                 break;
             }
         }
@@ -114,21 +56,29 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, $window) {
         $window.location.reload();
     }
 
-    function defineActionLeaveOrDeleteMatch() {
-        $scope.actionBarButtonText = 'Excluir Partida';
+    function defineBarbuttonText() {
+        if($scope.match.idOwner === $scope._user.id) {
+            $scope.actionBarButtonText = 'Excluir Partida';
+        } else {
+            $scope.actionBarButtonText = 'Sair';
+        }
+        
     }
 
     function barButtonAction() {
-        leaveMach();
-        //deleteMatch();
+        if($scope.match.idOwner === $scope._user.id) {
+            _deleteMatch();    
+        } else {
+            _leaveMach();
+        }
     }
 
 
-    function deleteMatch() {
+    function _deleteMatch() {
         console.log('delete match');
     }
 
-    function leaveMatch() {
+    function _leaveMatch() {
         console.log('leave match');
     }
 

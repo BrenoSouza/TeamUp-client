@@ -1,10 +1,20 @@
 <ion-view title="Favoritos">
     <ion-content class="scroll-content ionic-scroll padding">
-        <div class="card list">
-            <div class="item item-avatar" ng-repeat="user in favorites">
-                <img src="img/profile_default.svg">
-                <h2>{{ user.name }}</h2>
+        <div ng-if="favorites !== undefined">
+            <div class="card list animate-show-up" ng-if="favorites.length > 0">
+                <div class="item item-avatar" ng-repeat="user in favorites">
+                    <img src="img/profile_default.svg">
+                    <h2>{{ user.name }}</h2>
+                </div>
             </div>
+            <div class="center-content" ng-if="favorites.length === 0">
+                <div class="title-container">
+                    <h3 class="title-section text-center">Você não possui usuários favoritos</h3>
+                </div>
+            </div>
+        </div>
+        <div class="spinner-container" ng-if="favorites === undefined">
+            <ion-spinner icon="android"></ion-spinner>
         </div>
     </ion-content>
 </ion-view>

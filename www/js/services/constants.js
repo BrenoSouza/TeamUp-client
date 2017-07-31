@@ -11,6 +11,8 @@ function Constants() {
     constants.MATCHES_LIST = constants.DOMAIN + '/games';
     constants.MATCH = constants.DOMAIN + '/game';
     constants.MY_MATCHES = constants.DOMAIN + '/mygames';
+    constants.FAVORITES = constants.DOMAIN + '/favoriteusers';
+    constants.TOGGLE_FAVORITE = constants.DOMAIN + '/favorite';
 
     return constants;
 }

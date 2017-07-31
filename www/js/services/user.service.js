@@ -4,6 +4,7 @@ function UserService($http, $localStorage, SessionService, Constants) {
 
 	this.getAll = getAll;
 	this.getOne = getOne;
+	this.toggleFavorite = toggleFavorite;
 
 	function getAll(successCb, errorCb) {
 		$http.get(Constants.USER).then(function successCallback(response) {
@@ -20,6 +21,10 @@ function UserService($http, $localStorage, SessionService, Constants) {
 			errorCb(errResponse);
 		});
 	};
+
+	function toggleFavorite(favoriteId) {
+		return $http.post(Constants.TOGGLE_FAVORITE + '/' + favoriteId);
+	}
 	  
 	return this;
 

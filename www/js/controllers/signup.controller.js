@@ -3,11 +3,11 @@ angular.module('TeamUp').controller('SignupCtrl', SignupCtrl);
 function SignupCtrl($scope, $state, authService, SessionService) {
     
     $scope.user = {
-        name: 'Rafael Klynger',
-        email: 'rafael@hotmail.com.br',
-        password: '123456789',
-        phone: '123456789',
-        address: 'Rua teste endereco teste'
+        name: '',
+        email: '',
+        password: '',
+        phone: '',
+        address: ''
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -22,7 +22,7 @@ function SignupCtrl($scope, $state, authService, SessionService) {
     $scope.signup = function () {
         console.log('usr ', $scope.user);
         authService.signup($scope.user).then(function (response) {
-            console.log('PEGOOOU!! ', response);
+            $state.go('login');
         }, function(error) {
             console.log('#deuRuim ', error);
         });

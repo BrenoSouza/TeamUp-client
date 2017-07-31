@@ -1,0 +1,27 @@
+<ion-view title="Buscar Partida">
+    <ion-content class="padding">
+        <div class="card item item-input-inset">
+            <label class="item-input-wrapper">
+                <input placeholder="Buscar" type="text" ng-model="searchCamp">
+            </label>
+            <button class="button button-small button-positive" ng-click="search">Buscar</button>
+        </div>
+        <div class="search-match-result-container" ng-if="searchResult.length > 0">
+            <div class="title-container">
+                <h3 class="title-section">Resultado</h3>
+            </div>
+            <div class="list">
+                <div class="card">
+                    <div class="item">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="center-content" ng-if="searchResult.length === 0">
+            <div class="title-container">
+                <h3 class="title-section text-center">Não há resultados para essa busca</h3>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
