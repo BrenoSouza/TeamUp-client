@@ -7,6 +7,7 @@ function matchService($http, Constants, $q) {
     this.getMyMatches = getMyMatches;
     this.addNewMatch = addNewMatch;
     this.matchParser = matchParser;
+    this.deleteMatch = deleteMatch;
 
 
     function getMatch(id) {
@@ -23,7 +24,7 @@ function matchService($http, Constants, $q) {
             idOwner: response.idOwner,
             id: response.id,
             address: response.local,
-            name: 'Nome mockado'
+            name: response.name
         };
 
         if(response.guests == null) {
@@ -34,11 +35,15 @@ function matchService($http, Constants, $q) {
             match.guestsRequests = [];
         }
 
-        return match
+        return match;
     }
 
     function getMatches() {
         return $http.get(Constants.MATCHES_LIST);
+    }
+
+    function deleteMatch(id) {
+        return $http.delete(Constants.MATCH + '/' + id.toString());
     }
 
     function getMyMatches() {

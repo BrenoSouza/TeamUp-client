@@ -75,7 +75,12 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
 
     function _deleteMatch() {
-        console.log('delete match');
+        matchService.deleteMatch($scope.match.id).then(function (response) {
+            console.log('response ', response);
+        }, function(error) {
+            console.log('errou ', error);
+        });
+        $state.go('app.matches', {}, { reload: true });
     }
 
     function _leaveMatch() {

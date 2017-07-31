@@ -6,7 +6,7 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
 
     $scope._newMatch = {};
     $scope.goToMatch = goToMatch;
-    
+
     $scope._resetNewMatch = function () {
         $scope._newMatch = {
             name: '',
@@ -25,9 +25,14 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
         console.log('reason ', reason);
     });
 
-    matchService.getMyMatches().then(function(response) {
-        $scope.myMatches = response.data;
-    });
+
+    function _getMyMatches() {
+        matchService.getMyMatches().then(function (response) {
+            $scope.myMatches = response.data;
+            console.log('response ', response.data);
+        });
+    }
+    _getMyMatches();
 
     function goToMatch(id) {
         $state.go('app.match.details', { id: id }, { reload: true });
@@ -47,7 +52,7 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
     $scope.closeNewMatchView = function () {
         $scope.newMatchView.hide();
     }
-    
+
     $scope.$on('$destroy', function () {
         $scope.newMatchView.remove();
     });
@@ -69,12 +74,12 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
             sport: $scope._newMatch.sport,
             local: $scope._newMatch.address,
         };
-        console.log('nova partida ', newMatch);
+
         matchService.addNewMatch(newMatch).then(function (response) {
-            $scope.myMatches.push(newMatch);
+            _getMyMatches();
             $scope.newMatchView.hide();
             $scope._resetNewMatch();
-        }, function(error) {
+        }, function (error) {
             console.log('#deuRuim');
         });
 
