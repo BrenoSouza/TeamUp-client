@@ -1,6 +1,6 @@
 angular.module('TeamUp').controller('MainCtrl', MainCtrl);
 
-function MainCtrl($scope, $state, $ionicSideMenuDelegate, authService, SessionService) {
+function MainCtrl($scope, $state, $ionicSideMenuDelegate, authService, SessionService, $window) {
 
 	$scope.$on('unauthorizedResponseError', function (event) {
 		console.log('unauthorized');
@@ -30,6 +30,7 @@ function MainCtrl($scope, $state, $ionicSideMenuDelegate, authService, SessionSe
 
 	$scope.goToMatches = function() {
 		$state.go('app.matches', {}, { reload: true });
+		$window.location.reload();
 	}
 
 	$scope.logout = function() {

@@ -1,8 +1,7 @@
 angular.module('TeamUp').controller('MatchesCtrl', MatchesCtrl);
 
 
-function MatchesCtrl($scope, $state, $ionicModal, matchService) {
-
+function MatchesCtrl($scope, $state, $ionicModal, matchService, $window) {
 
     $scope._newMatch = {};
     $scope.goToMatch = goToMatch;
@@ -36,6 +35,7 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService) {
 
     function goToMatch(id) {
         $state.go('app.match.details', { id: id }, { reload: true });
+        $window.location.reload();
     }
 
     $ionicModal.fromTemplateUrl('templates/new-match.html', {

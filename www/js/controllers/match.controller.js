@@ -81,6 +81,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
             console.log('errou ', error);
         });
         $state.go('app.matches', {}, { reload: true });
+        $window.location.reload();
     }
 
     function _leaveMatch() {

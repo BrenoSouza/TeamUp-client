@@ -43,7 +43,14 @@ function matchService($http, Constants, $q) {
     }
 
     function deleteMatch(id) {
-        return $http.delete(Constants.MATCH + '/' + id.toString());
+        
+        return $http({  
+        method: "DELETE",  
+        data: {},
+        url: Constants.MATCH + '/' + id.toString(),  
+        headers: {'Content-Type': 'application/json' }  
+    });
+        
     }
 
     function getMyMatches() {
