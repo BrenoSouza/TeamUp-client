@@ -6,24 +6,26 @@ function authService($http, $state, Constants, SessionService) {
 	this.logout = logout;
 	this.signup = signup;
 
-  	function login(user, callback) {
+	function login(user, callback) {
 		console.log('aqui');
 		authenticate(user, callback);
 	};
 
-	function logout(unauthorizedResponseError) {
-		if(unauthorizedResponseError){
-			SessionService.removeSession();
-			$state.go('login');
-		}
+	function logout() {
+		SessionService.removeSession();
+		$state.go('login');
+		// if (unauthorizedResponseError) {
+		// 	SessionService.removeSession();
+		// 	$state.go('login');
+		// }
 
-		$http.post(Constants.LOGOUT).then(function (response) {
-			console.log('deslogou');
-			SessionService.removeSession();
-			$state.go('login');
-		}, function(response) {
-			return;
-		});
+		// $http.post(Constants.LOGOUT).then(function (response) {
+		// 	console.log('deslogou');
+		// 	SessionService.removeSession();
+		// 	$state.go('login');
+		// }, function(response) {
+		// 	console.log('error logout ', response);
+		// });
 	};
 
 	function signup(user) {
@@ -35,7 +37,7 @@ function authService($http, $state, Constants, SessionService) {
 			SessionService.generateSession(data.data.user, data.data.token);
 			$state.go('app.perfil');
 			callback(false);
-		}, function(response) {
+		}, function (response) {
 			console.log(response);
 			callback(true);
 		});

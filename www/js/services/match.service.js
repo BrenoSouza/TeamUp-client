@@ -8,10 +8,12 @@ function matchService($http, Constants, $q) {
     this.addNewMatch = addNewMatch;
     this.matchParser = matchParser;
     this.deleteMatch = deleteMatch;
+    this.requestJoinMatch = requestJoinMatch;
+    this.getMatchRequests = getMatchRequests;
 
 
     function getMatch(id) {
-        return $http.get(Constants.MATCH + '/' + id.toString()); ;
+        return $http.get(Constants.MATCH + '/' + id.toString());;
     }
 
     function matchParser(response) {
@@ -27,11 +29,11 @@ function matchService($http, Constants, $q) {
             name: response.name
         };
 
-        if(response.guests == null) {
+        if (response.guests == null) {
             match.guests = [];
         }
 
-        if(response.guestsRequests == null) {
+        if (response.guestsRequests == null) {
             match.guestsRequests = [];
         }
 
@@ -43,18 +45,37 @@ function matchService($http, Constants, $q) {
     }
 
     function deleteMatch(id) {
-        
-        return $http({  
-        method: "DELETE",  
-        data: {},
-        url: Constants.MATCH + '/' + id.toString(),  
-        headers: {'Content-Type': 'application/json' }  
-    });
-        
+
+        return $http({
+            method: "DELETE",
+            data: {},
+            url: Constants.MATCH + '/' + id.toString(),
+            headers: { 'Content-Type': 'application/json' }
+        });
+
     }
 
     function getMyMatches() {
         return $http.get(Constants.MY_MATCHES);
+    }
+
+    function getMatchRequests(matchId) {
+        return $http({
+            method: 'get',
+            data: {},
+            url: Constants.MATCH_REQUEST + '/' + matchId.toString(),
+            headers: { 'Content-type': 'application/json' }
+        });
+        // return $http.get(Constants.MATCH_REQUEST + '/' + matchId.toString());
+    }
+
+    function requestJoinMatch(matchId) {
+        return $http({
+            method: 'post',
+            data: {},
+            url: Constants.MATCH_REQUEST + '/' + matchId.toString(),
+            headers: { 'Content-type': 'application/json' }
+        });
     }
 
     function addNewMatch(match) {

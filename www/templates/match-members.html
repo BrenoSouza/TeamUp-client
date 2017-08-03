@@ -4,8 +4,10 @@
             <h4 class="section-title">Confirmados</h4>
             <!-- RODAR NG-REPEAT QUANDO A LISTA TIVER ALGUM USUÁRIO -->
             <div class="card list">
-                <div class="item item-icon-left">
-                    <i class="icon ion-person"></i> Rafael Klynger
+                <div class="item item-avatar" ng-repeat="user in match.guests">
+                    <img src="img/profile_default.svg" alt="">
+                    <h2>{{ user.name }}</h2>
+                    <p>{{ user.email }}</p>
                 </div>
             </div>
         </div>

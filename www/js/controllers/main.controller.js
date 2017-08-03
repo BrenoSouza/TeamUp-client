@@ -28,6 +28,10 @@ function MainCtrl($scope, $state, $ionicSideMenuDelegate, authService, SessionSe
 		$state.go('app.searchMatch', {}, { reload: true });
 	}
 
+	$scope.goToSearchUser = function() {
+		$state.go('app.searchUser', {}, { reload: true });
+	}
+
 	$scope.goToMatches = function() {
 		$state.go('app.matches', {}, { reload: true });
 		$window.location.reload();

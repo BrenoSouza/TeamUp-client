@@ -10,6 +10,7 @@ function Constants() {
     constants.USER = constants.DOMAIN + '/user';
     constants.MATCHES_LIST = constants.DOMAIN + '/games';
     constants.MATCH = constants.DOMAIN + '/game';
+    constants.MATCH_REQUEST = constants.DOMAIN + '/gamerequest';
     constants.MY_MATCHES = constants.DOMAIN + '/mygames';
     constants.FAVORITES = constants.DOMAIN + '/favoriteusers';
     constants.TOGGLE_FAVORITE = constants.DOMAIN + '/favorite';

@@ -6,6 +6,7 @@
                 <div class="item item-avatar" ng-repeat="user in match.guestsRequests">
                     <img src="img/profile_default.svg">
                     <h2>{{ user.name }}</h2>
+                    <p>{{ user.email }}</p>
                     <div class="actions-item-avatar-container">
                         <i class="icon ion-checkmark-round" ng-click="acceptRequest(user.id)"></i>
                         <i class="icon ion-close-round" ng-click="rejectRequest(user.id)"></i>

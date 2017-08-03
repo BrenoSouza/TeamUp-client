@@ -6,9 +6,9 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
     $scope.match = {};
     $scope._editedMatch = {};
     $scope._user = SessionService.getUser();
+    $scope.hasAction = false;
 
     // $scope.isFloatActive = false;
-    $scope.barButtonAction = barButtonAction;
 
     // pending-requests functions
     $scope.acceptRequest = acceptRequest;
@@ -22,12 +22,68 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
     matchService.getMatch($state.params.id).then(function (response) {
         $scope.match = matchService.matchParser(response.data);
+        _mockado($scope.match);
         console.log('match ', $scope.match);
         $scope._resetEditedMatch();
-        defineBarbuttonText();
+        _defineBarAction();
     }, function (error) {
         console.log('error ', error);
     });
+
+    function _mockado(match) {
+        match.guestsRequests = [
+            {
+                name: 'Rafael',
+                email: 'klynger@ufcg.edu'
+            },
+            {
+                name: 'Vinicius',
+                email: 'vinicius@globo.com'
+            },
+            {
+                name: 'Ronaldo Medeiros',
+                email: 'rmedeiros@bol.com.br'
+            },
+            {
+                name: 'Heitor Miranda',
+                email: 'miranda98@gmail.com'
+            },
+            {
+                name: 'Breno Souza',
+                email: 'souza@hotmail.com'
+            }
+        ];
+
+        match.guests = [
+            {
+                name: 'Rafaela',
+                email: 'rafaela@ufcg.com'
+            },
+            {
+                name: 'felipe',
+                email: 'felipe@gmail.com'
+            },
+            {
+                name: 'Victor',
+                email: 'victor@bol.com.br'
+            },
+            {
+                name: 'Raimundo',
+                email: 'raimundo354@hotmail.com'
+            },
+            {
+                name: 'Thierry',
+                email: 'thierry@uol.com.br'
+            }
+        ];
+    }
+
+    // matchService.getMatchRequests($state.params.id).then(function (response) {
+    //     $scope.match.guestsRequests = response.data;
+    //     console.log('pegou ', response.data);
+    // }, function(error) {
+    //     console.log('error ', error);
+    // });
 
     function rejectRequest(id) {
 
@@ -56,28 +112,43 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
         $window.location.reload();
     }
 
-    function defineBarbuttonText() {
-        if($scope.match.idOwner === $scope._user.id) {
+    function _defineBarAction() {
+        if ($scope.match.idOwner === $scope._user.id) {
+            $scope.hasAction = true;
             $scope.actionBarButtonText = 'Excluir Partida';
+            $scope.barButtonAction = _deleteMatch;
+
+        } else if ($scope.match.guests.indexOf($scope._user.id) <= -1
+            && $scope.match.guestsRequests.indexOf($scope._user.id) <= -1) {
+            $scope.hasAction = true;
+            $scope.actionBarButtonText = 'Entrar na partida';
+            $scope.barButtonAction = _joinMatch;
+
+        } else if ($scope.match.guestsRequests.indexOf($scope._user.id) > -1) {
+            $scope.hasAction = false;
+            $scope.actionBarButtonText = undefined;
+            $scope.barButtonAction = undefined;
         } else {
+            $scope.hasAction = true;
             $scope.actionBarButtonText = 'Sair';
-        }
-        
-    }
+            $scope.barButtonAction = _leaveMatch;
 
-    function barButtonAction() {
-        if($scope.match.idOwner === $scope._user.id) {
-            _deleteMatch();    
-        } else {
-            _leaveMach();
         }
     }
 
+
+    function _joinMatch() {
+        matchService.requestJoinMatch($scope.match.id).then(function (response) {
+            console.log('request feito ', response);
+        }, function (response) {
+            console.log('#deuRuim ', response);
+        });
+    }
 
     function _deleteMatch() {
         matchService.deleteMatch($scope.match.id).then(function (response) {
             console.log('response ', response);
-        }, function(error) {
+        }, function (error) {
             console.log('errou ', error);
         });
         $state.go('app.matches', {}, { reload: true });

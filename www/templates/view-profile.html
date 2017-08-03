@@ -32,7 +32,7 @@
             </div>
         </div> -->
     </ion-content>
-    <button class="animate-show-up button button-float" ng-if="user !== undefined" ng-click="openEditProfileView()">
+    <button class="animate-show-up button button-float" ng-if="user !== undefined && canEdit" ng-click="openEditProfileView()">
             <i class="icon ion-edit"></i>
     </button>
 </ion-view>

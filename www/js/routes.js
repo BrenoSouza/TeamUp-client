@@ -126,6 +126,17 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
             }
         })
 
+        .state('app.searchUser', {
+            url: '/search-user',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/search-user.html',
+                    controller: 'SearchUserCtrl',
+                    cache: false
+                }
+            }
+        })
+
         .state('app.favorites', {
             url: '/favorites',
             views: {

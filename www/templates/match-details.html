@@ -1,6 +1,9 @@
 <ion-view title="Partida">
     <ion-nav-buttons side="right">
-        <button class="button button-clear" ng-click="barButtonAction()">{{ actionBarButtonText }}</button>
+        <div ng-if="hasAction">
+            <button class="button button-clear" ng-click="barButtonAction()">{{ actionBarButtonText }}</button>
+        </div>
+        
     </ion-nav-buttons>
     <ion-content>
         <div class="title-container margin-title-top">

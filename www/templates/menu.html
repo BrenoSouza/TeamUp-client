@@ -21,8 +21,8 @@
     <ion-side-menu side="left">
 
       <div class="heading-item item item-avatar side-menu darker-bg">
-        <img src="https://ngumountainlaurel.files.wordpress.com/2011/11/placeholder-profile-male.jpg?w=1075">
-        <h2 class="darker-bg"> Nome</h2>
+        <img src="img/profile_default.svg">
+        <h2>Rafael Klynger</h2>
       </div>
 
       <ion-list>
@@ -35,10 +35,13 @@
         <ion-item nav-clear menu-close ng-click="goToSearchMatch()">
           <i class="icon ion-search"></i> Buscar Partida
         </ion-item>
+        <ion-item nav-clear menu-close ng-click="goToSearchUser()">
+          <i class="icon ion-search"></i> Buscar Usuário
+        </ion-item>
         <ion-item nav-clear menu-close ng-click="goToMatches()">
           <i class="ion-ios-calendar"></i> Partidas
         </ion-item>
-        <ion-item nav-clear menu-close ng-click="">
+        <ion-item nav-clear menu-close ng-click="logout()">
           <i class="ion-log-out"></i> Sair
         </ion-item>
       </ion-list>
