@@ -11,7 +11,7 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService, $window) {
             name: '',
             date: new Date(),
             description: '',
-            sport: '',
+            sport: 'Futsal',
             address: ''
         };
     }
