@@ -1,6 +1,6 @@
 <ion-view title="Membros">
-    <ion-content class="padding">
-        <div ng-if="match.guests.length > 0">
+    <ion-content class="padding-horizontal">
+        <div class="animate-show-up" ng-if="match.guests.length > 0">
             <h4 class="section-title">Confirmados</h4>
             <!-- RODAR NG-REPEAT QUANDO A LISTA TIVER ALGUM USUÁRIO -->
             <div class="card list">
@@ -11,8 +11,10 @@
                 </div>
             </div>
         </div>
-        <div ng-if="match.guests.length === 0">
-            Não há pessoas confirmadas nessa partida ainda.
+        <div class="empty-view-container animate-show-up" ng-if="match.guests.length === 0">
+            <h4 class="title-section">
+                Não há pessoas confirmadas nessa partida ainda.
+            </h4>
         </div>
     </ion-content>
 </ion-view>

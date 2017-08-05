@@ -6,24 +6,29 @@
             </label>
             <button class="button button-small button-positive" ng-click="search">Buscar</button>
         </div>
-        <div class="search-result-container" ng-if="searchResult.length > 0">
-            <div class="title-container">
-                <h3 class="title-section">Resultado</h3>
-            </div>
-            <div class="list">
-                <div class="card" ng-repeat="user in searchResult">
-                    <div class="item item-avatar" ng-click="goToUser(user.id)">
-                        <img src="img/profile_default.svg" alt="">
-                        <h2>{{ user.name }}</h2>
-                        <p>{{ user.email }}</p>
+        <div class="animate-show-up" ng-if="!isLoading">
+            <div class="search-result-container" ng-if="searchResult.length > 0">
+                <div class="title-container">
+                    <h3 class="title-section">Resultado</h3>
+                </div>
+                <div class="list">
+                    <div class="card" ng-repeat="user in searchResult">
+                        <div class="item item-avatar" ng-click="goToUser(user.id)">
+                            <img src="img/profile_default.svg" alt="">
+                            <h2>{{ user.name }}</h2>
+                            <p>{{ user.email }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="center-content" ng-if="searchResult.length === 0">
-            <div class="title-container">
-                <h3 class="title-section text-center">Não há resultados para essa busca</h3>
+            <div class="empty-view-container empty-view-with-title" ng-if="searchResult.length === 0">
+                <h4 class="title-section">
+                    Não há resultados para essa busca
+                </h4>
             </div>
+        </div>
+        <div class="spinner-container" ng-if="isLoading">
+            <ion-spinner icon="android"></ion-spinner>
         </div>
     </ion-content>
 </ion-view>

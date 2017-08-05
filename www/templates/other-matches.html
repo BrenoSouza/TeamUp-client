@@ -12,8 +12,10 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="matches.length === 0">
-                Nenhuma partida
+            <div class="empty-view-container empty-view-with-title" ng-if="matches.length === 0">
+                <h4 class="title-section">
+                    Nenhuma partida
+                </h4>
             </div>
         </div>
     </ion-content>

@@ -1,5 +1,5 @@
 <ion-view title="Pendentes">
-    <ion-content class="padding pending-requests-container">
+    <ion-content class="padding-horizontal pending-requests-container">
         <div ng-if="match.guestsRequests.length > 0">
             <h4 class="section-title">Pendentes</h4>
             <div class="card list">
@@ -14,8 +14,10 @@
                 </div>
             </div>
         </div>
-        <div ng-if="match.guestsRequests.length === 0">
-            Não convites pendentes para participar dessa partida.
+        <div class="empty-view-container" ng-if="match.guestsRequests.length === 0">
+            <h4 class="title-section">
+                Não convites pendentes para participar dessa partida.
+            </h4>
         </div>
     </ion-content>
 </ion-view>

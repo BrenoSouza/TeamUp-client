@@ -11,6 +11,22 @@
     border: solid 1px green;
 }
 
+.empty-view-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - 93px);
+}
+
+.empty-view-container .title-section {
+    margin: 0;
+    text-align: center;
+}
+
+.empty-view-with-title {
+    margin-top: -48px;
+}
+
 .img-container img {
     width: 100%;
 }

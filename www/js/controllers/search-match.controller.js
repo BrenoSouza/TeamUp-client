@@ -4,12 +4,14 @@ function SearchMatchCtrl($scope, $http, $state, $window, Constants) {
 
     $scope.searchCamp = '';
     $scope.searchResult = [];
+    $scope.isLoading = true;
 
     $scope.search = search;
     $scope.goToMatch = goToMatch;
 
     $http.get(Constants.MATCH).then(function(response) {
         $scope.searchResult = response.data;
+        $scope.isLoading = false;
         console.log('response ', response.data);
     }, function(error) {
         console.log('error ', error);

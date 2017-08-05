@@ -11,6 +11,9 @@
                 </div>
             </div>
         </div>
+        <div class="spinner-container" ng-if="myMatches === undefined">
+            <ion-spinner icon="android"></ion-spinner>
+        </div>
     </ion-content>
     <button class="button button-float" ng-click="openNewMatchView()">
             <i class="icon ion-plus"></i>

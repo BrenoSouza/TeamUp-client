@@ -22,7 +22,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
     matchService.getMatch($state.params.id).then(function (response) {
         $scope.match = matchService.matchParser(response.data);
-        _mockado($scope.match);
+
         console.log('match ', $scope.match);
         $scope._resetEditedMatch();
         _defineBarAction();
@@ -73,7 +73,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
             },
             {
                 name: 'Thierry',
-                email: 'thierry@uol.com.br'
+                email: 'thierry@uol.com.brx'
             }
         ];
     }
