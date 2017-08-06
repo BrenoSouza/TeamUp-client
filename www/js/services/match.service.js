@@ -1,104 +1,140 @@
 angular.module('TeamUp').factory('matchService', matchService);
 
-function matchService($http, Constants, $q) {
+function matchService($http, Constants, $q, SessionService) {
 
     this.getMatch = getMatch;
+    this.editMyMatch = editMyMatch;
     this.getMatches = getMatches;
+    this.getMyMatches = getMyMatches;
+    this.addNewMatch = addNewMatch;
+    this.matchParser = matchParser;
+    this.matchParseToJSON = matchParseToJSON;
+    this.deleteMatch = deleteMatch;
+    this.leaveMatch = leaveMatch;
+    this.requestJoinMatch = requestJoinMatch;
+    this.acceptMatchRequest = acceptMatchRequest;
+    this.rejectMatchRequest = rejectMatchRequest;
+    this.getMatchRequests = getMatchRequests;
+    
+
 
     function getMatch(id) {
-        // CÓDIGO TEMPORÁRIO
-        const matches = [
-            {
-                name: 'Futsal semanal',
-                date: '15/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 1
-            },
-            {
-                name: 'Tênis',
-                date: '20/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 2
-            },
-            {
-                name: 'Vôlei',
-                date: '23/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 3
-            },
-            {
-                name: 'Natação',
-                date: '23/08/2017',
-                description: 'Vai ser legal',
-                sport: 'futsal',
-                address: 'Próximo a ufcg',
-                id: 4
-            }
-        ];
+        return $http.get(Constants.MATCH + '/' + id.toString());;
+    }
 
-        const deferred = $q.defer();
+    function matchParser(response) {
+        const match = {
+            date: new Date(response.date),
+            description: response.description,
+            guests: response.guests,
+            guestsRequests: response.guestsRequests,
+            sport: response.sport,
+            idOwner: response.idOwner,
+            id: response.id,
+            address: response.local,
+            name: response.name
+        };
 
-        setTimeout(function() {
-            deferred.notify('Fetching data...');
-            var match = matches[0];
-            for(var i = 0; i < matches.length; i++) {
-                if(matches[i].id === id) {
-                    match = matches[i];
-                }
-            }
-            deferred.resolve(match);
-        }, 1000);
+        if (response.guests == null) {
+            match.guests = [];
+        }
 
-        return deferred.promise;
+        if (response.guestsRequests == null) {
+            match.guestsRequests = [];
+        }
+
+        return match;
+    }
+
+    function matchParseToJSON(match) {
+        const matchJSON = {
+            date: match.date,
+            description: match.description,
+            local: match.address,
+            name: match.name,
+            sport: match.sport
+        };
+
+        return matchJSON;
     }
 
     function getMatches() {
+        return $http.get(Constants.MATCHES_LIST);
+    }
 
-        //return $http.get(Constants.MATCHES);
+    function deleteMatch(id) {
 
-        // CÓDIGO TEMPORÁRIO
-        const matches = [
-            {
-                name: 'Futsal semanal',
-                date: '15/08/2017',
-                description: 'Vai ser muito legal',
-                id: 1
-            },
-            {
-                name: 'Tênis',
-                date: '20/08/2017',
-                description: 'Vai ser muito legal',
-                id: 2
-            },
-            {
-                name: 'Vôlei',
-                date: '23/08/2017',
-                description: 'Vai ser muito legal',
-                id: 3
-            },
-            {
-                name: 'Natação',
-                date: '23/08/2017',
-                description: 'Vai ser muito legal',
-                id: 4
-            }
-        ];
+        return $http({
+            method: "DELETE",
+            data: {},
+            url: Constants.MATCH + '/' + id.toString(),
+            headers: { 'Content-Type': 'application/json' }
+        });
 
-        const deferred = $q.defer();
+    }
 
-        setTimeout(function () {
-            deferred.notify('Fetching data...');
-            deferred.resolve(matches);
-        }, 1000);
+    function editMyMatch(matchId, newMatchData) {
+        return $http({
+            method: 'PUT',
+            data: newMatchData,
+            url: Constants.MATCH + '/' + matchId.toString(),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        // return $http.put(Constants.MATCH + '/' + matchId.toString(), newMatchData);
+    }
 
+    function leaveMatch(matchId) {
+        return $http({
+            method: 'PUT',
+            data: {},
+            url: Constants.LEAVE_MATCH + '/' + matchId.toString(),
+            headers: { 'Accept': 'application/json' }
+        });
+    }
 
-        return deferred.promise;
+    function getMyMatches() {
+
+        return $http.get(Constants.MY_MATCHES);
+    }
+
+    function getMatchRequests(matchId) {
+        return $http({
+            method: 'get',
+            data: {},
+            url: Constants.GET_MATCH_REQUESTS + '/' + matchId.toString(),
+            headers: { 'Accept': 'application/json' }
+        });
+    }
+
+    function requestJoinMatch(matchId) {
+        return $http({
+            method: 'post',
+            data: {},
+            url: Constants.MATCH_REQUEST + '/' + matchId.toString(),
+            headers: { 'Content-type': 'application/json' }
+        });
+    }
+
+    function acceptMatchRequest(matchId, userId) {
+        return $http({
+            method: 'post',
+            data: {},
+            url: Constants.ACCEPT_REQUEST + '/' + matchId.toString() + '/' + userId.toString(),
+            headers: { 'Content-type': 'application/json' }
+        });
+    }
+
+    function rejectMatchRequest(matchId, userId) {
+        return $http({
+            method: 'post',
+            data: {},
+            url: Constants.REJECT_REQUEST + '/' + matchId.toString() + '/' + userId.toString(),
+            headers: { 'Content-type': 'application/json'}
+        });
+    }
+
+    function addNewMatch(match) {
+        return $http.post(Constants.MATCH, match);
     }
 
     return this;

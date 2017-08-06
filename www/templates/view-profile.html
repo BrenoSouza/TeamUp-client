@@ -5,31 +5,26 @@
         </div>
         <div class="list card animate-show-up" ng-if="user !== undefined">
             <div class="item item-body">
-                <img src="{{ user.profilePhoto }}" alt="Profile photo">
+                <div class="profile__img-container">
+                    <img src="{{ user.profilePhoto }}" alt="Profile photo">
+                    <i class="icon" ng-class="{'ion-ios-star-outline': !isFavorite, 'ion-ios-star': isFavorite}" ng-if="!canEdit" ng-click="toggleFavorite()"></i>
+                </div>
                 <h2 class="name-container"><b>{{ user.name }}</b></h2>
                 <h4 class="email-container">({{ user.email }})</h4>
             </div>
             <div class="extra-info">
                 <h4 class="phone">{{ user.phone }}</h4>
                 <div>
-                    <p> Fair play: {{ user.fairPlayRating }}/10</p>
+                    <p>Fair play: {{ user.fairPlayRating }}/10</p>
                     <p>Habilidade: {{ user.abilityRating }}/10</p>
                 </div>
             </div>
         </div>
-        <div class="title-container">
-            <h2 id="profile-matches-title" class="title-section">Partidas</h2>
-        </div>
-        <div class="list animate-show-up" ng-if="matches !== undefined">
-            <div class="card" ng-repeat="match in matches">
-                <div class="item card-match-row">
-                    <p>{{ match.name }}</p>
-                    <p>{{ match.date | date }}</p>
-                </div>
-            </div>
+        <div class="spinner-container" ng-if="user === undefined">
+            <ion-spinner icon="android"></ion-spinner>
         </div>
     </ion-content>
-    <button class="animate-show-up button button-float" ng-if="user !== undefined" ng-click="openEditProfileView()">
+    <button class="animate-show-up button button-float" ng-if="user !== undefined && canEdit" ng-click="openEditProfileView()">
             <i class="icon ion-edit"></i>
     </button>
 </ion-view>

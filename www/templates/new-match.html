@@ -14,13 +14,22 @@
             <label class="item item-input">
                 <input placeholder="Local da partida" ng-model="_newMatch.address" type="text">
             </label>
-            <label class="item item-input">
-                <input placeholder="Local da partida" ng-model="_newMatch.sport" type="text">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Esporte
+                </div>
+                <select ng-model="_newMatch.sport">
+                    <option value="Futsal" selected>Futsal</option>
+                    <option value="Futebol">Futebol</option>
+                    <option value="Vôlei">Vôlei</option>
+                    <option value="Natação">Natação</option>
+                    <option value="Tenis">Tenis</option>
+                </select>
             </label>
             <label class="item item-input">
-                <textarea placeholder="Descrição" id="new-match-description" ng-model="_newMatch.description" cols="30" rows="10"></textarea>
+                <textarea placeholder="Descrição" class="match-description" ng-model="_newMatch.description" cols="30" rows="10"></textarea>
             </label>
         </div>
-        <button class="button button-full button-positive" ng-click="createMatch(_newMatch)">Criar</button>
+        <button class="button button-full button-positive" ng-click="createMatch()">Criar</button>
     </ion-content>
 </ion-modal-view>

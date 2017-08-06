@@ -1,5 +1,21 @@
-<ion-view>
-    <ion-content class="has-header">
-        It worksss!!!!
+<ion-view title="Favoritos">
+    <ion-content class="scroll-content ionic-scroll padding">
+        <div class="animate-show-up" ng-if="favorites !== undefined">
+            <div class="card list" ng-if="favorites.length > 0" ng-repeat="user in favorites" ng-click="goToUser(user.id)">
+                <div class="item item-avatar">
+                    <img src="img/profile_default.svg">
+                    <h2>{{ user.name }}</h2>
+                    <p>{{ user.email }}</p>
+                </div>
+            </div>
+            <div class="empty-view-container" ng-if="favorites.length === 0">
+                <h3 class="title-section">
+                    Você não possui usuários favoritos
+                </h3>
+            </div>
+        </div>
+        <div class="spinner-container" ng-if="favorites === undefined">
+            <ion-spinner icon="android"></ion-spinner>
+        </div>
     </ion-content>
 </ion-view>

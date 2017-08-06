@@ -1,25 +1,26 @@
-<ion-view view-title="" name="login-view" ng-init="user={name: '', email: '', password: '', phone: '', address: ''}">
+<ion-view view-title="" name="login-view">
     <ion-content class="padding flex-content">
         <div class="img-container">
             <img src="img/logo.png" alt="">
         </div>
         <form name="signupForm">
-            <label class="item item-input" ng-class="{'invalid': signup.name.$touched && signup.name.$invalid}">
+            <label class="item item-input" ng-class="{'invalid': signupForm.name.$touched && signupForm.name.$invalid}">
         <input type="text" placeholder="Nome" name="name" ng-model="user.name" required>
     </label>
-            <label class="item item-input" ng-class="{'invalid': signup.email.$touched && signup.email.$invalid}">
+            <label class="item item-input" ng-class="{'invalid': signupForm.email.$touched && signupForm.email.$invalid}">
         <input type="email" placeholder="Email" ng-model="user.email" required>
     </label>
-            <label class="item item-input" ng-class="{'invalid': signup.passwrod.$touched && signup.password.$invalid}">
+            <label class="item item-input" ng-class="{'invalid': signupForm.passwrod.$touched && signupForm.password.$invalid}">
           <input type="password" placeholder="Senha" name="password" ng-model="user.password" required>
         </label>
-            <label class="item item-input" ng-class="{'invalid': signup.phone.$touched && signup.phone.$invalid}">
-          <input type="number" placeholder="Telefone" ng-model="user.phone" required>
+            <label class="item item-input" ng-class="{'invalid': signupForm.phone.$touched && signupForm.phone.$invalid}">
+          <input type="text" placeholder="Telefone" ng-model="user.phone" required>
         </label>
-            <label class="item item-input" ng-class="{'invalid': signup.address.$touched && signup.address.$invalid}">
+            <label class="item item-input" ng-class="{'invalid': signupForm.address.$touched && signupForm.address.$invalid}">
           <input type="text" placeholder="Endereço" ng-model="user.address" required>
         </label>
-            <button class="button button-block button-positive" type="submit">Cadastrar</button>
+            <button class="button button-block button-positive" type="submit" ng-click="signup()">Cadastrar</button>
         </form>
+        <button class="button button-block" ng-click="goBackLogin()">Voltar</button>
     </ion-content>
 </ion-view>

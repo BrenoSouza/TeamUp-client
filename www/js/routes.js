@@ -42,6 +42,29 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
                 'menuContent': {
                     templateUrl: 'templates/matches.html',
                     controller: 'MatchesCtrl',
+                    cache: false,
+                    abstract: true
+                }
+            }
+        })
+
+        .state('app.matches.myMatches', {
+            url: '/my-matches',
+            views: {
+                'my-matches': {
+                    templateUrl: 'templates/my-matches.html',
+                    controller: 'MatchesCtrl',
+                    cache: false
+                }
+            }
+        })
+
+        .state('app.matches.otherMatches', {
+            url: '/other-matches',
+            views: {
+                'other-matches': {
+                    templateUrl: 'templates/other-matches.html',
+                    controller: 'MatchesCtrl',
                     cache: false
                 }
             }
@@ -53,13 +76,14 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
                 'menuContent': {
                     templateUrl: 'templates/match.html',
                     controller: 'MatchCtrl',
-                    abstract: true,
+                    cache: false,
+                    abstract: true
                 }
             }
         })
 
         .state('app.match.details', {
-            url: '/match/:id/details',
+            url: '/details',
             views: {
                 'match-details': {
                     templateUrl: 'templates/match-details.html',
@@ -70,7 +94,7 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
         })
 
         .state('app.match.members', {
-            url: '/match/:id/members',
+            url: '/members',
             views: {
                 'match-members': {
                     templateUrl: 'templates/match-members.html',
@@ -81,7 +105,7 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
         })
 
         .state('app.match.pendingRequests', {
-            url: '/match/:id/pending-requests',
+            url: '/pending-requests',
             views: {
                 'match-pending-requests': {
                     templateUrl: 'templates/match-pending-requests.html',
@@ -91,10 +115,32 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
             }
         })
 
+        .state('app.searchMatch', {
+            url: '/search-match',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/search-match.html',
+                    controller: 'SearchMatchCtrl',
+                    cache: false
+                }
+            }
+        })
+
+        .state('app.searchUser', {
+            url: '/search-user',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/search-user.html',
+                    controller: 'SearchUserCtrl',
+                    cache: false
+                }
+            }
+        })
+
         .state('app.favorites', {
             url: '/favorites',
             views: {
-                'favorites': {
+                'menuContent': {
                     templateUrl: 'templates/favorites.html',
                     controller: 'FavoritesCtrl',
                     cache: false
