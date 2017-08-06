@@ -13,6 +13,7 @@ function Constants() {
     constants.MATCH_REQUEST = constants.DOMAIN + '/gamerequest';
     constants.ACCEPT_REQUEST = constants.DOMAIN + '/acceptrequest';
     constants.REJECT_REQUEST = constants.DOMAIN + '/rejectrequest';
+    constants.LEAVE_MATCH = constants.DOMAIN + '/leaveGame';
     constants.GET_MATCH_REQUESTS = constants.DOMAIN + '/guestRequests';
     constants.MY_MATCHES = constants.DOMAIN + '/mygames';
     constants.FAVORITES = constants.DOMAIN + '/favoriteusers';

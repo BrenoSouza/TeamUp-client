@@ -6,7 +6,7 @@
         <div class="list animate-show-up" ng-if="myMatches !== undefined">
             <div class="card" ng-repeat="match in myMatches">
                 <div class="item card-match-row" ng-click="goToMatch(match.id)">
-                    <p>{{ match.sport }}</p>
+                    <p>{{ match.name }}</p>
                     <p>{{ match.date | date }}</p>
                 </div>
             </div>

@@ -10,6 +10,7 @@ function matchService($http, Constants, $q, SessionService) {
     this.matchParser = matchParser;
     this.matchParseToJSON = matchParseToJSON;
     this.deleteMatch = deleteMatch;
+    this.leaveMatch = leaveMatch;
     this.requestJoinMatch = requestJoinMatch;
     this.acceptMatchRequest = acceptMatchRequest;
     this.rejectMatchRequest = rejectMatchRequest;
@@ -71,17 +72,28 @@ function matchService($http, Constants, $q, SessionService) {
         });
 
     }
-    function editMyMatch(idMatch, newMatchData) {
+
+    function editMyMatch(matchId, newMatchData) {
         return $http({
             method: 'PUT',
             data: newMatchData,
-            url: Constants.MATCH + '/' + idMatch.toString(),
+            url: Constants.MATCH + '/' + matchId.toString(),
             headers: { 'Content-Type': 'application/json' }
         });
-        // return $http.put(Constants.MATCH + '/' + idMatch.toString(), newMatchData);
+        // return $http.put(Constants.MATCH + '/' + matchId.toString(), newMatchData);
+    }
+
+    function leaveMatch(matchId) {
+        return $http({
+            method: 'PUT',
+            data: {},
+            url: Constants.LEAVE_MATCH + '/' + matchId.toString(),
+            headers: { 'Accept': 'application/json' }
+        });
     }
 
     function getMyMatches() {
+
         return $http.get(Constants.MY_MATCHES);
     }
 

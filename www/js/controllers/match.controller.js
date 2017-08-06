@@ -95,21 +95,20 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
                 $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
                     return user.id !== id;
                 });
-            }, function(error) {
+            }, function (error) {
                 console.log('errou ', error);
             });
-        // $window.location.reload();
     }
 
     function acceptRequest(id) {
-        
+
         matchService.acceptMatchRequest($scope.match.id, id)
             .then(function (response) {
                 console.log('aceitoou!!! ', response);
                 $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
                     return user.id !== id;
                 });
-            }, function(error) {
+            }, function (error) {
                 console.log('errooou!! ', error);
             });
     }
@@ -149,17 +148,24 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
     }
 
     function _deleteMatch() {
+
         matchService.deleteMatch($scope.match.id).then(function (response) {
-            console.log('response ', response);
+
+            $state.go('app.matches', {}, { reload: true });
+            $window.location.reload();
         }, function (error) {
             console.log('errou ', error);
         });
-        $state.go('app.matches', {}, { reload: true });
-        $window.location.reload();
+
     }
 
     function _leaveMatch() {
-        console.log('leave match');
+        matchService.leaveMatch($scope.match.id)
+            .then(function(response) {
+                console.log('LEAVOOOOU!!!', response);
+            }, function(error) {
+                console.log('NÃO LEAVOOOU DEU ERRO ', error);
+            });
     }
 
 
