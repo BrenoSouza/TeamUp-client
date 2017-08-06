@@ -119,13 +119,13 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
             $scope.actionBarButtonText = 'Excluir Partida';
             $scope.barButtonAction = _deleteMatch;
 
-        } else if ($scope.match.guests.indexOf($scope._user.id) <= -1
-            && $scope.match.guestsRequests.indexOf($scope._user.id) <= -1) {
+        } else if (!$scope.match.guests.includes($scope._user.id)
+            && !$scope.match.guestsRequests.includes($scope._user.id)) {
             $scope.hasAction = true;
             $scope.actionBarButtonText = 'Entrar na partida';
             $scope.barButtonAction = _joinMatch;
 
-        } else if ($scope.match.guestsRequests.indexOf($scope._user.id) > -1) {
+        } else if ($scope.match.guestsRequests.includes($scope._user.id)) {
             $scope.hasAction = false;
             $scope.actionBarButtonText = undefined;
             $scope.barButtonAction = undefined;
@@ -142,6 +142,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
         matchService.requestJoinMatch($scope.match.id).then(function (response) {
             console.log('request feito ', response);
             $scope.match = matchService.matchParser(response.data);
+            _defineBarAction();
         }, function (response) {
             console.log('#deuRuim ', response);
         });
@@ -161,9 +162,11 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
     function _leaveMatch() {
         matchService.leaveMatch($scope.match.id)
-            .then(function(response) {
-                console.log('LEAVOOOOU!!!', response);
-            }, function(error) {
+            .then(function (response) {
+                console.log('Saiu da partida', response);
+                $state.go('app.matches', {}, { reload: true });
+                $window.location.reload();
+            }, function (error) {
                 console.log('NÃO LEAVOOOU DEU ERRO ', error);
             });
     }
