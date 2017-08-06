@@ -30,9 +30,21 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 
 	
 	function saveChanges() {
-		$scope.user.name = $scope._editedUser.name;
-		$scope.user.phone = $scope._editedUser.phone;
-		$scope.editProfileView.hide();
+
+		const changes = UserService.parseUserToJSON($scope._editedUser);
+		UserService.saveChangesProfile(changes).then(function(response) {
+
+			$scope.user = response.data;
+			$scope.user.profilePhoto = 'img/profile_default.svg';
+			$scope.editProfileView.hide();
+
+			console.log('Edições salvas ', $scope.user);
+		}, function(error) {
+			console.log('DIDNT WORK!!! ', error)
+		});
+
+
+		
 	}
 
 	function openEditProfileView() {
@@ -46,6 +58,9 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 	function _resetEditedUser() {
 		$scope._editedUser = {
 			name: $scope.user.name,
+			email: $scope.user.email,
+			address: $scope.user.address,
+			password: '',
 			phone: $scope.user.phone
 		};
 	}
