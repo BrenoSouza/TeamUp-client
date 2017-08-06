@@ -23,9 +23,15 @@ function UserService($http, $localStorage, SessionService, Constants) {
 	};
 
 	function toggleFavorite(favoriteId) {
-		return $http.post(Constants.TOGGLE_FAVORITE + '/' + favoriteId);
+		return $http({
+			method: 'post',
+			data: {},
+			url: Constants.TOGGLE_FAVORITE + '/' + favoriteId.toString(),
+			headers: { 'Accept': 'application/json' }
+		});
+		// return $http.post(Constants.TOGGLE_FAVORITE + '/' + favoriteId);
 	}
-	  
+
 	return this;
 
 }

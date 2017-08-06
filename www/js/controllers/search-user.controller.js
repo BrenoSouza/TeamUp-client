@@ -15,7 +15,6 @@ function SearchUserCtrl($scope, $state, $http, Constants) {
     });
 
     function goToUser(id) {
-        console.log('user id ', id);
         $state.go('app.viewProfile', { id: id }, { reload: true });
     }
 }

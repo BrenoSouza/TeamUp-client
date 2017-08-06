@@ -17,14 +17,8 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 	$scope.toggleFavorite = toggleFavorite;
 
 
-	// matchService.getMatches().then(function (data) {
-	// 	$scope.matches = data;
-	// }, function (error) {
-	// 	console.log(error);
-	// });
-
 	function toggleFavorite() {
-		if($scope.sessionUser.id === $scope.user.id) {
+		if($scope.sessionUser.id !== $scope.user.id) {
 			UserService.toggleFavorite($scope.user.id).then(function(response) {
 				console.log('response ', response);
 				$scope.isFavorite = !$scope.isFavorite;
@@ -79,16 +73,20 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 				console.log('user ', user);
 				$scope.sessionUser = SessionService.getUser();
 
-				if($scope.sessionUser !== null && $scope.user.id === $scope.sessionUser.id) {
+				if ($scope.sessionUser !== null && $scope.user.id === $scope.sessionUser.id) {
 					$scope.canEdit = true;
 					$scope.sessionUser = $scope.user;
 				} else if ($scope.sessionUser !== null) {
 					UserService.getOne($scope.sessionUser.id, function(user) {
 						$scope.sessionUser = user;
+						$scope.isFavorite = $scope.sessionUser.favoriteUsers.includes($scope.user.id);
+						
 						console.log('session user ', $scope.sessionUser);
 					}, function(error) {
 						console.log('Error ', error);
 					});
+
+					
 				}
 
 				$scope._resetEditedUser();

@@ -2,9 +2,10 @@
     <ion-content class="scroll-content ionic-scroll padding">
         <div class="animate-show-up" ng-if="favorites !== undefined">
             <div class="card list" ng-if="favorites.length > 0">
-                <div class="item item-avatar" ng-repeat="user in favorites">
+                <div class="item item-avatar" ng-repeat="user in favorites" ng-click="goToUser(user.id)">
                     <img src="img/profile_default.svg">
                     <h2>{{ user.name }}</h2>
+                    <p>{{ user.email }}</p>
                 </div>
             </div>
             <div class="empty-view-container" ng-if="favorites.length === 0">
