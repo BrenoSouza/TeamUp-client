@@ -22,10 +22,19 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
     matchService.getMatch($state.params.id).then(function (response) {
         $scope.match = matchService.matchParser(response.data);
-
         console.log('match ', $scope.match);
         $scope._resetEditedMatch();
         _defineBarAction();
+
+        if ($scope._user.id === $scope.match.idOwner) {
+            matchService.getMatchRequests($state.params.id).then(function (response) {
+                $scope.match.guestsRequests = response.data;
+                console.log('match requests ', $scope.match.guestsRequests);
+            }, function (error) {
+                console.log('error ', error);
+            });
+        }
+
     }, function (error) {
         console.log('error ', error);
     });
@@ -78,38 +87,31 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
         ];
     }
 
-    // matchService.getMatchRequests($state.params.id).then(function (response) {
-    //     $scope.match.guestsRequests = response.data;
-    //     console.log('pegou ', response.data);
-    // }, function(error) {
-    //     console.log('error ', error);
-    // });
-
     function rejectRequest(id) {
 
-        const guestsRequests = $scope.match.guestsRequests;
-        for (var i = 0; i < guestsRequests.length; i++) {
-            if (guestsRequests[i].id === id) {
-                delete guestsRequests[i];
-                break;
-            }
-        }
-        $window.location.reload();
+        matchService.rejectMatchRequest($scope.match.id, id)
+            .then(function (response) {
+                console.log('rejeitooou!!! ', response);
+                $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
+                    return user.id !== id;
+                });
+            }, function(error) {
+                console.log('errou ', error);
+            });
+        // $window.location.reload();
     }
 
     function acceptRequest(id) {
-        const guestsRequests = $scope.match.guestsRequests;
-        var user;
-        for (var i = 0; i < guestsRequests.length; i++) {
-            if (guestsRequests[i].id === id) {
-                user = guestsRequests[i];
-                delete guestsRequests[i];
-                break;
-            }
-        }
-
-        $scope.match.members.push(user);
-        $window.location.reload();
+        
+        matchService.acceptMatchRequest($scope.match.id, id)
+            .then(function (response) {
+                console.log('aceitoou!!! ', response);
+                $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
+                    return user.id !== id;
+                });
+            }, function(error) {
+                console.log('errooou!! ', error);
+            });
     }
 
     function _defineBarAction() {
@@ -140,6 +142,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
     function _joinMatch() {
         matchService.requestJoinMatch($scope.match.id).then(function (response) {
             console.log('request feito ', response);
+            $scope.match = matchService.matchParser(response.data);
         }, function (response) {
             console.log('#deuRuim ', response);
         });
@@ -164,7 +167,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
     function _resetEditedMatch() {
         $scope._editedMatch.name = $scope.match.name;
         $scope._editedMatch.address = $scope.match.address;
-        $scope._editedMatch.dat = $scope.match.date;
+        $scope._editedMatch.date = $scope.match.date;
         $scope._editedMatch.sport = $scope.match.sport
         $scope._editedMatch.description = $scope.match.description;
     }
@@ -178,14 +181,19 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
     }
 
     function saveChanges() {
-        $scope.match = {
-            name: $scope._editedMatch.name,
-            address: $scope._editedMatch.address,
-            date: $scope._editedMatch.date,
-            sport: $scope._editedMatch.sport,
-            description: $scope._editedMatch.description
-        };
-        $scope.editMatchView.hide();
+
+        const matchJSON = matchService.matchParseToJSON($scope._editedMatch);
+
+        matchService.editMyMatch($scope.match.id, matchJSON).then(function (response) {
+            console.log('funcionou!!! ', response);
+
+            $scope.match = matchService.matchParser(response.data);
+
+            $scope.editMatchView.hide();
+        }, function (error) {
+            console.log('#deuRuim ', error);
+        });
+
     }
 
 

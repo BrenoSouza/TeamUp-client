@@ -14,8 +14,17 @@
             <label class="item item-input">
                 <input placeholder="Data" ng-model="_editedMatch.date" type="date">
             </label>
-            <label class="item item-input">
-                <input placeholder="Esporte" ng-model="_editedMatch.sport" type="text">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Esporte
+                </div>
+                <select ng-model="_editedMatch.sport">
+                    <option value="Futsal">Futsal</option>
+                    <option value="Futebol">Futebol</option>
+                    <option value="Vôlei">Vôlei</option>
+                    <option value="Natação">Natação</option>
+                    <option value="Tenis">Tenis</option>
+                </select>
             </label>
             <label class="item item-input">
                 <textarea placeholder="Descrição" class="match-description" ng-model="_editedMatch.description" cols="30" rows="10"></textarea>

@@ -1,15 +1,20 @@
 angular.module('TeamUp').factory('matchService', matchService);
 
-function matchService($http, Constants, $q) {
+function matchService($http, Constants, $q, SessionService) {
 
     this.getMatch = getMatch;
+    this.editMyMatch = editMyMatch;
     this.getMatches = getMatches;
     this.getMyMatches = getMyMatches;
     this.addNewMatch = addNewMatch;
     this.matchParser = matchParser;
+    this.matchParseToJSON = matchParseToJSON;
     this.deleteMatch = deleteMatch;
     this.requestJoinMatch = requestJoinMatch;
+    this.acceptMatchRequest = acceptMatchRequest;
+    this.rejectMatchRequest = rejectMatchRequest;
     this.getMatchRequests = getMatchRequests;
+    
 
 
     function getMatch(id) {
@@ -18,7 +23,7 @@ function matchService($http, Constants, $q) {
 
     function matchParser(response) {
         const match = {
-            date: response.date,
+            date: new Date(response.date),
             description: response.description,
             guests: response.guests,
             guestsRequests: response.guestsRequests,
@@ -40,6 +45,18 @@ function matchService($http, Constants, $q) {
         return match;
     }
 
+    function matchParseToJSON(match) {
+        const matchJSON = {
+            date: match.date,
+            description: match.description,
+            local: match.address,
+            name: match.name,
+            sport: match.sport
+        };
+
+        return matchJSON;
+    }
+
     function getMatches() {
         return $http.get(Constants.MATCHES_LIST);
     }
@@ -54,6 +71,15 @@ function matchService($http, Constants, $q) {
         });
 
     }
+    function editMyMatch(idMatch, newMatchData) {
+        return $http({
+            method: 'PUT',
+            data: newMatchData,
+            url: Constants.MATCH + '/' + idMatch.toString(),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        // return $http.put(Constants.MATCH + '/' + idMatch.toString(), newMatchData);
+    }
 
     function getMyMatches() {
         return $http.get(Constants.MY_MATCHES);
@@ -63,10 +89,9 @@ function matchService($http, Constants, $q) {
         return $http({
             method: 'get',
             data: {},
-            url: Constants.MATCH_REQUEST + '/' + matchId.toString(),
-            headers: { 'Content-type': 'application/json' }
+            url: Constants.GET_MATCH_REQUESTS + '/' + matchId.toString(),
+            headers: { 'Accept': 'application/json' }
         });
-        // return $http.get(Constants.MATCH_REQUEST + '/' + matchId.toString());
     }
 
     function requestJoinMatch(matchId) {
@@ -75,6 +100,24 @@ function matchService($http, Constants, $q) {
             data: {},
             url: Constants.MATCH_REQUEST + '/' + matchId.toString(),
             headers: { 'Content-type': 'application/json' }
+        });
+    }
+
+    function acceptMatchRequest(matchId, userId) {
+        return $http({
+            method: 'post',
+            data: {},
+            url: Constants.ACCEPT_REQUEST + '/' + matchId.toString() + '/' + userId.toString(),
+            headers: { 'Content-type': 'application/json' }
+        });
+    }
+
+    function rejectMatchRequest(matchId, userId) {
+        return $http({
+            method: 'post',
+            data: {},
+            url: Constants.REJECT_REQUEST + '/' + matchId.toString() + '/' + userId.toString(),
+            headers: { 'Content-type': 'application/json'}
         });
     }
 
