@@ -10,7 +10,7 @@ function Constants() {
     constants.USER = constants.DOMAIN + '/user';
     constants.MATCHES_LIST = constants.DOMAIN + '/games';
     constants.MATCH = constants.DOMAIN + '/game';
-    constants.MATCH_REQUEST = constants.DOMAIN + '/gamerequest';
+    constants.MATCH_REQUEST = constants.DOMAIN + '/gameRequest';
     constants.ACCEPT_REQUEST = constants.DOMAIN + '/acceptrequest';
     constants.REJECT_REQUEST = constants.DOMAIN + '/rejectrequest';
     constants.LEAVE_MATCH = constants.DOMAIN + '/leaveGame';
