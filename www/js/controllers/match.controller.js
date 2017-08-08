@@ -8,7 +8,10 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
     $scope._user = SessionService.getUser();
     $scope.hasAction = false;
 
-    // $scope.isFloatActive = false;
+    // loadings
+    $scope.isLoadingMembers = true;
+    $scope.isLoadingMatchDetails = true;
+    $scope.isLoadingPendingRequests = true;
 
     // pending-requests functions
     $scope.acceptRequest = acceptRequest;
@@ -25,67 +28,32 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
         console.log('match ', $scope.match);
         $scope._resetEditedMatch();
         _defineBarAction();
+        $scope.isLoadingMatchDetails = false;
 
         if ($scope._user.id === $scope.match.idOwner) {
             matchService.getMatchRequests($state.params.id).then(function (response) {
                 $scope.match.guestsRequests = response.data;
+                $scope.isLoadingPendingRequests = false;
                 console.log('match requests ', $scope.match.guestsRequests);
             }, function (error) {
+                $scope.isLoadingPendingRequests = false;
                 console.log('error ', error);
             });
         }
 
+        matchService.getMatchMembers($state.params.id).then(function (response) {
+            $scope.match.guests = response.data;
+            $scope.isLoadingMembers = false;
+            console.log('match Members ', response);
+        }, function (error) {
+            $scope.isLoadingMembers = false;
+            console.log('Match members #deuRuim ', error);
+        });
+
     }, function (error) {
+        $scope.isLoadingMatchDetails = false;
         console.log('error ', error);
     });
-
-    function _mockado(match) {
-        match.guestsRequests = [
-            {
-                name: 'Rafael',
-                email: 'klynger@ufcg.edu'
-            },
-            {
-                name: 'Vinicius',
-                email: 'vinicius@globo.com'
-            },
-            {
-                name: 'Ronaldo Medeiros',
-                email: 'rmedeiros@bol.com.br'
-            },
-            {
-                name: 'Heitor Miranda',
-                email: 'miranda98@gmail.com'
-            },
-            {
-                name: 'Breno Souza',
-                email: 'souza@hotmail.com'
-            }
-        ];
-
-        match.guests = [
-            {
-                name: 'Rafaela',
-                email: 'rafaela@ufcg.com'
-            },
-            {
-                name: 'felipe',
-                email: 'felipe@gmail.com'
-            },
-            {
-                name: 'Victor',
-                email: 'victor@bol.com.br'
-            },
-            {
-                name: 'Raimundo',
-                email: 'raimundo354@hotmail.com'
-            },
-            {
-                name: 'Thierry',
-                email: 'thierry@uol.com.brx'
-            }
-        ];
-    }
 
     function rejectRequest(id) {
 

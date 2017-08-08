@@ -9,6 +9,7 @@ function matchService($http, Constants, $q, SessionService) {
     this.addNewMatch = addNewMatch;
     this.matchParser = matchParser;
     this.matchParseToJSON = matchParseToJSON;
+    this.getMatchMembers = getMatchMembers;
     this.deleteMatch = deleteMatch;
     this.leaveMatch = leaveMatch;
     this.requestJoinMatch = requestJoinMatch;
@@ -95,6 +96,15 @@ function matchService($http, Constants, $q, SessionService) {
     function getMyMatches() {
 
         return $http.get(Constants.MY_MATCHES);
+    }
+
+    function getMatchMembers(matchId) {
+        return $http({
+            method: 'get',
+            data: {},
+            url: Constants.MATCH_MEMBERS + '/' + matchId.toString(),
+            headers: { 'Accept': 'application/json' }
+        });
     }
 
     function getMatchRequests(matchId) {

@@ -3,28 +3,31 @@
         <div ng-if="hasAction">
             <button class="button button-clear" ng-click="barButtonAction()">{{ actionBarButtonText }}</button>
         </div>
-        
     </ion-nav-buttons>
     <ion-content>
-        <div class="title-container margin-title-top">
-            <h3 class="title-section">{{ match.name }}</h3>
+        <div class="animate-show-up" ng-if="!isLoadingMatchDetails">
+            <div class="title-container margin-title-top">
+                <h3 class="title-section">{{ match.name }}</h3>
+            </div>
+            <div class="card list">
+                <div class="item">
+                    Local: {{ match.address }}
+                </div>
+                <div class="item">
+                    Data: {{ match.date | date }}
+                </div>
+                <div class="item">
+                    Esporte: {{ match.sport }}
+                </div>
+                <div class="item">
+                    Descrição da partida: {{ match.description }}
+                </div>
+            </div>
         </div>
-        <div class="card list">
-            <div class="item">
-                Local: {{ match.address }}
-            </div>
-            <div class="item">
-                Data: {{ match.date | date }}
-            </div>
-            <div class="item">
-                Esporte: {{ match.sport }}
-            </div>
-            <div class="item">
-                Descrição da partida: {{ match.description }}
-            </div>
+        <div class="spinner-container" ng-if="isLoadingMatchDetails">
+            <ion-spinner icon="android"></ion-spinner>
         </div>
     </ion-content>
-
     <button id="match-details__float-edit" class="button button-float" ng-click="openEditMatchView()" ng-if="_user.id === match.idOwner">
         <i class="icon ion-edit"></i>
     </button>

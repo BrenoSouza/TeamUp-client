@@ -1,20 +1,27 @@
 <ion-view title="Membros">
     <ion-content class="padding-horizontal">
-        <div class="animate-show-up" ng-if="match.guests.length > 0">
-            <h4 class="section-title">Confirmados</h4>
-            <!-- RODAR NG-REPEAT QUANDO A LISTA TIVER ALGUM USUÁRIO -->
-            <div class="card list">
-                <div class="item item-avatar" ng-repeat="user in match.guests">
-                    <img src="img/profile_default.svg" alt="">
-                    <h2>{{ user.name }}</h2>
-                    <p>{{ user.email }}</p>
+        <div class="animate-show-up" ng-if="!isLoadingMembers">
+            <div ng-if="match.guests.length > 0">
+                <div class="title-container padding-vertical">
+                    <h3 class="section-title">Confirmados</h3>
+                </div>
+                <!-- RODAR NG-REPEAT QUANDO A LISTA TIVER ALGUM USUÁRIO -->
+                <div class="card list">
+                    <div class="item item-avatar" ng-repeat="user in match.guests">
+                        <img src="img/profile_default.svg" alt="">
+                        <h2>{{ user.name }}</h2>
+                        <p>{{ user.email }}</p>
+                    </div>
                 </div>
             </div>
+            <div class="empty-view-container animate-show-up" ng-if="match.guests.length === 0">
+                <h4 class="title-section">
+                    Não há pessoas confirmadas nessa partida ainda.
+                </h4>
+            </div>
         </div>
-        <div class="empty-view-container animate-show-up" ng-if="match.guests.length === 0">
-            <h4 class="title-section">
-                Não há pessoas confirmadas nessa partida ainda.
-            </h4>
+        <div class="spinner-container" ng-if="isLoadingMembers">
+            <ion-spinner icon="android"></ion-spinner>
         </div>
     </ion-content>
 </ion-view>
