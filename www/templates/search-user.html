@@ -2,9 +2,8 @@
     <ion-content class="padding search-user-container">
         <div class="card item item-input-inset">
             <label class="item-input-wrapper">
-                <input placeholder="Buscar" type="text" ng-model="searchCamp">
+                <input placeholder="Buscar" type="text" ng-model="search.searchCamp" ng-change="filterUsers()">
             </label>
-            <button class="button button-small button-positive" ng-click="search">Buscar</button>
         </div>
         <div class="animate-show-up" ng-if="!isLoading">
             <div class="search-result-container" ng-if="searchResult.length > 0">

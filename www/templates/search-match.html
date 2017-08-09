@@ -2,9 +2,8 @@
     <ion-content class="padding">
         <div class="card item item-input-inset">
             <label class="item-input-wrapper">
-                <input placeholder="Buscar" type="text" ng-model="searchCamp">
+                <input placeholder="Buscar" type="text" ng-change="filterMatches()" ng-model="search.searchCamp">
             </label>
-            <button class="button button-small button-positive" ng-click="search">Buscar</button>
         </div>
         <div class="animate-show-up" ng-if="!isLoading">
             <div class="search-match-result-container" ng-if="searchResult.length > 0">
@@ -14,7 +13,10 @@
                 <div class="list">
                     <div class="card" ng-repeat="match in searchResult">
                         <div class="item card-match-row" ng-click="goToMatch(match.id)">
-                            <p>{{ match.name }}</p>
+                            <div>
+                                <h2>{{ match.name }}</h2>
+                                <p>{{ match.sport }}</p>
+                            </div>
                             <p>{{ match.date | date }}</p>
                         </div>
                     </div>
