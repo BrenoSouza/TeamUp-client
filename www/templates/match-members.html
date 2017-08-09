@@ -6,8 +6,8 @@
                     <h3 class="section-title">Confirmados</h3>
                 </div>
                 <!-- RODAR NG-REPEAT QUANDO A LISTA TIVER ALGUM USUÁRIO -->
-                <div class="card list">
-                    <div class="item item-avatar" ng-repeat="user in match.guests">
+                <div class="card list" ng-repeat="user in match.guests">
+                    <div class="item item-avatar">
                         <img src="img/profile_default.svg" alt="">
                         <h2>{{ user.name }}</h2>
                         <p>{{ user.email }}</p>

@@ -5,8 +5,8 @@
                 <div class="title-container padding-vertical">
                     <h3 class="section-title">Pendentes</h3>
                 </div>
-                <div class="card list">
-                    <div class="item item-avatar" ng-repeat="user in match.guestsRequests">
+                <div class="card list" ng-repeat="user in match.guestsRequests">
+                    <div class="item item-avatar">
                         <img src="img/profile_default.svg">
                         <h2>{{ user.name }}</h2>
                         <p>{{ user.email }}</p>
