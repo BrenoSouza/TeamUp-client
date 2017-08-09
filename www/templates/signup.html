@@ -19,8 +19,8 @@
             <label class="item item-input" ng-class="{'invalid': signupForm.address.$touched && signupForm.address.$invalid}">
           <input type="text" placeholder="Endereço" ng-model="user.address" required>
         </label>
-            <button class="button button-block button-positive" type="submit" ng-click="signup()">Cadastrar</button>
+            <button class="button button-block button-positive" type="submit" ng-disabled="isSignupDisable" ng-click="signup()">Cadastrar</button>
         </form>
-        <button class="button button-block" ng-click="goBackLogin()">Voltar</button>
+        <button class="button button-block button-balanced" ng-click="goBackLogin()">Voltar</button>
     </ion-content>
 </ion-view>

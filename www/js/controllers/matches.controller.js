@@ -4,6 +4,7 @@ angular.module('TeamUp').controller('MatchesCtrl', MatchesCtrl);
 function MatchesCtrl($scope, $state, $ionicModal, matchService, $window) {
 
     $scope._newMatch = {};
+    $scope.isCreateNewMatchDisable = false;
     $scope.goToMatch = goToMatch;
 
     $scope._resetNewMatch = function () {
@@ -67,21 +68,31 @@ function MatchesCtrl($scope, $state, $ionicModal, matchService, $window) {
 
     $scope.createMatch = function () {
 
-        var newMatch = {
-            name: $scope._newMatch.name,
-            date: $scope._newMatch.date,
-            description: $scope._newMatch.description,
-            sport: $scope._newMatch.sport,
-            local: $scope._newMatch.address,
-        };
+        if (!$scope.isCreateNewMatchDisable) {
 
-        matchService.addNewMatch(newMatch).then(function (response) {
-            _getMyMatches();
-            $scope.newMatchView.hide();
-            $scope._resetNewMatch();
-        }, function (error) {
-            console.log('#deuRuim');
-        });
+            $scope.isCreateNewMatchDisable = true;
+            var newMatch = {
+                name: $scope._newMatch.name,
+                date: $scope._newMatch.date,
+                description: $scope._newMatch.description,
+                sport: $scope._newMatch.sport,
+                local: $scope._newMatch.address,
+            };
+
+            matchService.addNewMatch(newMatch).then(function (response) {
+                _getMyMatches();
+                $scope.newMatchView.hide().then(function () {
+                    $scope.isCreateNewMatchDisable = false;
+                }, function(error) {
+                    $scope.isCreateNewMatchDisable = false;
+                });
+                $scope._resetNewMatch();
+            }, function (error) {
+                $scope.isCreateNewMatchDisable = false;
+                console.log('#deuRuim ', error);
+            });
+        }
+
 
     }
 }

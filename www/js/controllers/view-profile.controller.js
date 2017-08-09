@@ -9,6 +9,7 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 
 	$scope._editedUser = {};
 	$scope.isFavorite = false;
+	$scope.isSaveChangesDisabled = false;
 
 	$scope._resetEditedUser = _resetEditedUser;
 	$scope.openEditProfileView = openEditProfileView;
@@ -18,33 +19,44 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 
 
 	function toggleFavorite() {
-		if($scope.sessionUser.id !== $scope.user.id) {
-			UserService.toggleFavorite($scope.user.id).then(function(response) {
+		if ($scope.sessionUser.id !== $scope.user.id) {
+			UserService.toggleFavorite($scope.user.id).then(function (response) {
 				console.log('response ', response);
 				$scope.isFavorite = !$scope.isFavorite;
-			}, function(error) {
+			}, function (error) {
 				console.log('#deuRuim ', error);
 			});
 		}
 	}
 
-	
+
 	function saveChanges() {
 
-		const changes = UserService.parseUserToJSON($scope._editedUser);
-		UserService.saveChangesProfile(changes).then(function(response) {
+		if (!$scope.isSaveChangesDisabled) {
 
-			$scope.user = response.data;
-			$scope.user.profilePhoto = 'img/profile_default.svg';
-			$scope.editProfileView.hide();
+			$scope.isSaveChangesDisabled = true;
 
-			console.log('Edições salvas ', $scope.user);
-		}, function(error) {
-			console.log('DIDNT WORK!!! ', error)
-		});
+			const changes = UserService.parseUserToJSON($scope._editedUser);
+			UserService.saveChangesProfile(changes).then(function (response) {
+
+				$scope.user = response.data;
+				$scope.user.profilePhoto = 'img/profile_default.svg';
+				$scope.editProfileView.hide().then(function() {
+					$scope.isSaveChangesDisabled = false;
+				}, function(error) {
+					$scope.isSaveChangesDisabled = false;
+				});
+
+				console.log('Edições salvas ', $scope.user);
+			}, function (error) {
+				$scope.isSaveChangesDisabled = false;
+				console.log('DIDNT WORK!!! ', error);
+			});
+		}
 
 
-		
+
+
 	}
 
 	function openEditProfileView() {
@@ -92,16 +104,16 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 					$scope.canEdit = true;
 					$scope.sessionUser = $scope.user;
 				} else if ($scope.sessionUser !== null) {
-					UserService.getOne($scope.sessionUser.id, function(user) {
+					UserService.getOne($scope.sessionUser.id, function (user) {
 						$scope.sessionUser = user;
 						$scope.isFavorite = $scope.sessionUser.favoriteUsers.includes($scope.user.id);
-						
+
 						console.log('session user ', $scope.sessionUser);
-					}, function(error) {
+					}, function (error) {
 						console.log('Error ', error);
 					});
 
-					
+
 				}
 
 				$scope._resetEditedUser();

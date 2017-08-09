@@ -4,6 +4,7 @@ function LoginCtrl($scope, $state, authService, SessionService, $document, $wind
 
 	$scope.login = login;
 	$scope.goToSignup = goToSignup;
+	$scope.isLoginDisable = false;
 
 	console.log($scope.loginForm);
 	$scope.$on('$ionicView.beforeEnter', function () {
@@ -17,16 +18,21 @@ function LoginCtrl($scope, $state, authService, SessionService, $document, $wind
 	});
 
 	function login() {
-		authService.login($scope.user, function (error) {
-			if (error) {
-				console.log('ERRO');
-			} else {
-				$state.go('app.matches', {}, { reload: true });
-				$window.location.reload();
-			}
 
-		});
-	};
+		if (!$scope.isLoginDisable) {
+
+			$scope.isLoginDisable = true;
+			authService.login($scope.user, function (error) {
+				if (error) {
+					console.log('ERRO');
+				} else {
+					$state.go('app.matches', {}, { reload: true });
+					$window.location.reload();
+				}
+				$scope.isLoginDisable = false;
+			});
+		}
+	}
 
 	function goToSignup() {
 		$state.go('signup');

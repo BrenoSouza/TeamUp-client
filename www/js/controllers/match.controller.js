@@ -8,6 +8,11 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
     $scope._user = SessionService.getUser();
     $scope.hasAction = false;
 
+    // Disable flags
+    $scope.isBarButtonDisabled = false;
+    $scope.isSaveChangesEditButtonDisabled = false;
+    $scope.isPendingRequestActionDisabled = false;
+
     // loadings
     $scope.isLoadingMembers = true;
     $scope.isLoadingMatchDetails = true;
@@ -57,28 +62,50 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
     function rejectRequest(id) {
 
-        matchService.rejectMatchRequest($scope.match.id, id)
-            .then(function (response) {
-                console.log('rejeitooou!!! ', response);
-                $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
-                    return user.id !== id;
+        if (!$scope.isPendingRequestActionDisabled) {
+
+            $scope.isPendingRequestActionDisabled = true;
+
+            matchService.rejectMatchRequest($scope.match.id, id)
+                .then(function (response) {
+                    console.log('rejeitooou!!! ', response);
+                    $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
+                        return user.id !== id;
+                    });
+
+                    $scope.isPendingRequestActionDisabled = false;
+
+                }, function (error) {
+
+                    console.log('errou ', error);
+                    $scope.isPendingRequestActionDisabled = false;
                 });
-            }, function (error) {
-                console.log('errou ', error);
-            });
+        }
+
     }
 
     function acceptRequest(id) {
 
-        matchService.acceptMatchRequest($scope.match.id, id)
-            .then(function (response) {
-                console.log('aceitoou!!! ', response);
-                $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
-                    return user.id !== id;
+        if (!$scope.isPendingRequestActionDisabled) {
+
+            $scope.isPendingRequestActionDisabled = true;
+
+            matchService.acceptMatchRequest($scope.match.id, id)
+                .then(function (response) {
+                    console.log('aceitoou!!! ', response);
+                    $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
+                        return user.id !== id;
+                    });
+
+                    $scope.isPendingRequestActionDisabled = true;
+
+                }, function (error) {
+
+                    console.log('errooou!! ', error);
+                    $scope.isPendingRequestActionDisabled = true;
                 });
-            }, function (error) {
-                console.log('errooou!! ', error);
-            });
+        }
+
     }
 
     function _defineBarAction() {
@@ -107,36 +134,57 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
 
     function _joinMatch() {
-        matchService.requestJoinMatch($scope.match.id).then(function (response) {
-            console.log('request feito ', response);
-            $scope.match = matchService.matchParser(response.data);
-            _defineBarAction();
-        }, function (response) {
-            console.log('#deuRuim ', response);
-        });
+
+        if (!$scope.isBarButtonDisabled) {
+
+            $scope.isBarButtonDisabled = true;
+
+            matchService.requestJoinMatch($scope.match.id).then(function (response) {
+                console.log('request feito ', response);
+                $scope.match = matchService.matchParser(response.data);
+                _defineBarAction();
+                $scope.isBarButtonDisabled = false;
+            }, function (response) {
+                $scope.isBarButtonDisabled = false;
+                console.log('#deuRuim ', response);
+            });
+        }
     }
 
     function _deleteMatch() {
 
-        matchService.deleteMatch($scope.match.id).then(function (response) {
+        if (!$scope.isBarButtonDisabled) {
 
-            $state.go('app.matches', {}, { reload: true });
-            $window.location.reload();
-        }, function (error) {
-            console.log('errou ', error);
-        });
+            $scope.isBarButtonDisabled = true;
+
+            matchService.deleteMatch($scope.match.id).then(function (response) {
+
+                $state.go('app.matches', {}, { reload: true });
+                $window.location.reload();
+                $scope.isBarButtonDisabled = false;
+            }, function (error) {
+                $scope.isBarButtonDisabled = false;
+                console.log('errou ', error);
+            });
+        }
 
     }
 
     function _leaveMatch() {
-        matchService.leaveMatch($scope.match.id)
-            .then(function (response) {
-                console.log('Saiu da partida', response);
-                $state.go('app.matches', {}, { reload: true });
-                $window.location.reload();
-            }, function (error) {
-                console.log('NÃO LEAVOOOU DEU ERRO ', error);
-            });
+
+        if (!$scope.isBarButtonDisabled) {
+            $scope.isBarButtonDisabled = true;
+            matchService.leaveMatch($scope.match.id)
+                .then(function (response) {
+                    console.log('Saiu da partida', response);
+                    $state.go('app.matches', {}, { reload: true });
+                    $window.location.reload();
+                    $scope.isBarButtonDisabled = false;
+                }, function (error) {
+                    $scope.isBarButtonDisabled = false;
+                    console.log('NÃO LEAVOOOU DEU ERRO ', error);
+                });
+        }
     }
 
 
@@ -159,17 +207,28 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
     function saveChanges() {
 
-        const matchJSON = matchService.matchParseToJSON($scope._editedMatch);
+        if (!$scope.isSaveChangesEditButtonDisabled) {
 
-        matchService.editMyMatch($scope.match.id, matchJSON).then(function (response) {
-            console.log('funcionou!!! ', response);
+            $scope.isSaveChangesEditButtonDisabled = true;
 
-            $scope.match = matchService.matchParser(response.data);
+            const matchJSON = matchService.matchParseToJSON($scope._editedMatch);
 
-            $scope.editMatchView.hide();
-        }, function (error) {
-            console.log('#deuRuim ', error);
-        });
+            matchService.editMyMatch($scope.match.id, matchJSON).then(function (response) {
+                console.log('funcionou!!! ', response);
+
+                $scope.match = matchService.matchParser(response.data);
+
+                $scope.editMatchView.hide().then(function () {
+                    $scope.isSaveChangesEditButtonDisabled = false;
+                }, function (error) {
+                    console.log('deu erro na hora de fechar o modal WTF? ', error);
+                    $scope.isSaveChangesEditButtonDisabled = false;
+                });
+            }, function (error) {
+                console.log('#deuRuim ', error);
+            });
+        }
+
 
     }
 

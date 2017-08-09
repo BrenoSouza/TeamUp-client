@@ -1,5 +1,5 @@
 <ion-view title="Pendentes">
-    <ion-content class="padding-horizontal pending-requests-container">
+    <ion-content class="pending-requests-container">
         <div class="animate-show-up" ng-if="!isLoadingPendingRequests">
             <div ng-if="match.guestsRequests.length > 0">
                 <div class="title-container padding-vertical">
@@ -11,13 +11,13 @@
                         <h2>{{ user.name }}</h2>
                         <p>{{ user.email }}</p>
                         <div class="actions-item-avatar-container">
-                            <i class="icon ion-checkmark-round" ng-click="acceptRequest(user.id)"></i>
-                            <i class="icon ion-close-round" ng-click="rejectRequest(user.id)"></i>
+                            <i class="icon ion-checkmark-round" ng-disabled="isPendingRequestActionDisabled" ng-click="acceptRequest(user.id)"></i>
+                            <i class="icon ion-close-round" ng-disabled="isPendingRequestActionDisabled" ng-click="rejectRequest(user.id)"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="empty-view-container" ng-if="match.guestsRequests.length === 0">
+            <div class="empty-view-container padding" ng-if="match.guestsRequests.length === 0">
                 <h4 class="title-section">
                     Não convites pendentes para participar dessa partida.
                 </h4>
