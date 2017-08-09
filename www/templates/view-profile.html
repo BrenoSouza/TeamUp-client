@@ -7,7 +7,12 @@
             <div class="item item-body">
                 <div class="profile__img-container">
                     <img src="{{ user.profilePhoto }}" alt="Profile photo">
-                    <i class="icon" ng-class="{'ion-ios-star-outline': !isFavorite, 'ion-ios-star': isFavorite}" ng-if="!canEdit" ng-click="toggleFavorite()"></i>
+                    <i 
+                        class="icon" 
+                        ng-class="{'ion-ios-star-outline': !isFavorite, 'ion-ios-star': isFavorite}" 
+                        ng-if="!canEdit"
+                        ng-disabled="isFavoriteDisabled"
+                        ng-click="toggleFavorite()"></i>
                 </div>
                 <h2 class="name-container"><b>{{ user.name }}</b></h2>
                 <h4 class="email-container">({{ user.email }})</h4>

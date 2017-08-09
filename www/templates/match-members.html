@@ -1,12 +1,12 @@
 <ion-view title="Membros">
     <ion-content>
         <div class="animate-show-up" ng-if="!isLoadingMembers">
-            <div ng-if="match.guests.length > 0">
+            <div ng-if="guests.length > 0">
                 <div class="title-container padding-vertical">
                     <h3 class="section-title">Confirmados</h3>
                 </div>
                 <!-- RODAR NG-REPEAT QUANDO A LISTA TIVER ALGUM USUÁRIO -->
-                <div class="card list" ng-repeat="user in match.guests">
+                <div class="card list" ng-repeat="user in guests">
                     <div class="item item-avatar">
                         <img src="img/profile_default.svg" alt="">
                         <h2>{{ user.name }}</h2>
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="empty-view-container animate-show-up" ng-if="match.guests.length === 0">
+            <div class="empty-view-container animate-show-up" ng-if="guests.length === 0">
                 <h4 class="title-section">
                     Não há pessoas confirmadas nessa partida ainda.
                 </h4>

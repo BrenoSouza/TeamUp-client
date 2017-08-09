@@ -30,6 +30,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
     matchService.getMatch($state.params.id).then(function (response) {
         $scope.match = matchService.matchParser(response.data);
+
         console.log('match ', $scope.match);
         $scope._resetEditedMatch();
         _defineBarAction();
@@ -37,7 +38,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
 
         if ($scope._user.id === $scope.match.idOwner) {
             matchService.getMatchRequests($state.params.id).then(function (response) {
-                $scope.match.guestsRequests = response.data;
+                $scope.guestsRequests = response.data;
                 $scope.isLoadingPendingRequests = false;
                 console.log('match requests ', $scope.match.guestsRequests);
             }, function (error) {
@@ -47,7 +48,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
         }
 
         matchService.getMatchMembers($state.params.id).then(function (response) {
-            $scope.match.guests = response.data;
+            $scope.guests = response.data;
             $scope.isLoadingMembers = false;
             console.log('match Members ', response);
         }, function (error) {
@@ -69,7 +70,11 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
             matchService.rejectMatchRequest($scope.match.id, id)
                 .then(function (response) {
                     console.log('rejeitooou!!! ', response);
-                    $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
+                    $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (userId) {
+                        return userId !== id;
+                    });
+
+                    $scope.guestsRequests = $scope.guestsRequests.filter(function (user) {
                         return user.id !== id;
                     });
 
@@ -93,42 +98,62 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
             matchService.acceptMatchRequest($scope.match.id, id)
                 .then(function (response) {
                     console.log('aceitoou!!! ', response);
-                    $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (user) {
+
+                    $scope.match.guestsRequests = $scope.match.guestsRequests.filter(function (userId) {
+                        return userId !== id;
+                    });
+
+                    $scope.guestsRequests = $scope.guestsRequests.filter(function (user) {
                         return user.id !== id;
                     });
 
-                    $scope.isPendingRequestActionDisabled = true;
+                    $scope.match.guests.push(id);
+
+                    $scope.isLoadingMembers = true;
+                    matchService.getMatchMembers($state.params.id).then(function (response) {
+                        $scope.guests = response.data;
+                        $scope.isLoadingMembers = false;
+                        console.log('match Members ', response);
+                    }, function (error) {
+                        $scope.isLoadingMembers = false;
+                        console.log('Match members #deuRuim ', error);
+                    });
+
+                    $scope.isPendingRequestActionDisabled = false;
 
                 }, function (error) {
 
                     console.log('errooou!! ', error);
-                    $scope.isPendingRequestActionDisabled = true;
+                    $scope.isPendingRequestActionDisabled = false;
                 });
         }
 
     }
 
     function _defineBarAction() {
+
         if ($scope.match.idOwner === $scope._user.id) {
             $scope.hasAction = true;
             $scope.actionBarButtonText = 'Excluir Partida';
             $scope.barButtonAction = _deleteMatch;
 
-        } else if (!$scope.match.guests.includes($scope._user.id)
-            && !$scope.match.guestsRequests.includes($scope._user.id)) {
-            $scope.hasAction = true;
-            $scope.actionBarButtonText = 'Entrar na partida';
-            $scope.barButtonAction = _joinMatch;
-
         } else if ($scope.match.guestsRequests.includes($scope._user.id)) {
-            $scope.hasAction = false;
-            $scope.actionBarButtonText = undefined;
-            $scope.barButtonAction = undefined;
-        } else {
+            $scope.hasAction = true;
+            $scope.actionBarButtonText = 'Pedido Enviado';
+            $scope.barButtonAction = function () { };
+            $scope.isBarButtonDisabled = true;
+
+        } else if ($scope.match.guests.includes($scope._user.id)) {
             $scope.hasAction = true;
             $scope.actionBarButtonText = 'Sair';
             $scope.barButtonAction = _leaveMatch;
+            $scope.isBarButtonDisabled = false;
 
+        } else {
+            $scope.hasAction = true;
+            $scope.actionBarButtonText = 'Entrar na partida';
+            $scope.barButtonAction = _joinMatch;
+            $scope.isBarButtonDisabled = false;
         }
     }
 
@@ -143,9 +168,9 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
                 console.log('request feito ', response);
                 $scope.match = matchService.matchParser(response.data);
                 _defineBarAction();
-                $scope.isBarButtonDisabled = false;
+
             }, function (response) {
-                $scope.isBarButtonDisabled = false;
+                _defineBarAction();
                 console.log('#deuRuim ', response);
             });
         }
@@ -177,9 +202,7 @@ function MatchCtrl($scope, $state, $ionicModal, matchService, SessionService, $w
             matchService.leaveMatch($scope.match.id)
                 .then(function (response) {
                     console.log('Saiu da partida', response);
-                    $state.go('app.matches', {}, { reload: true });
-                    $window.location.reload();
-                    $scope.isBarButtonDisabled = false;
+                    _defineBarAction();
                 }, function (error) {
                     $scope.isBarButtonDisabled = false;
                     console.log('NÃO LEAVOOOU DEU ERRO ', error);

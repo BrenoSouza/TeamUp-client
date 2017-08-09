@@ -1,11 +1,11 @@
 <ion-view title="Pendentes">
     <ion-content class="pending-requests-container">
         <div class="animate-show-up" ng-if="!isLoadingPendingRequests">
-            <div ng-if="match.guestsRequests.length > 0">
+            <div ng-if="guestsRequests.length > 0">
                 <div class="title-container padding-vertical">
                     <h3 class="section-title">Pendentes</h3>
                 </div>
-                <div class="card" ng-repeat="user in match.guestsRequests">
+                <div class="card" ng-repeat="user in guestsRequests">
                     <div class="item item-avatar">
                         <img src="img/profile_default.svg">
                         <h2>{{ user.name }}</h2>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="empty-view-container padding" ng-if="match.guestsRequests.length === 0">
+            <div class="empty-view-container padding" ng-if="guestsRequests.length === 0">
                 <h4 class="title-section">
                     Não convites pendentes para participar dessa partida.
                 </h4>

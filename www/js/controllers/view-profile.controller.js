@@ -10,6 +10,7 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 	$scope._editedUser = {};
 	$scope.isFavorite = false;
 	$scope.isSaveChangesDisabled = false;
+	$scope.isFavoriteDisabled = false;
 
 	$scope._resetEditedUser = _resetEditedUser;
 	$scope.openEditProfileView = openEditProfileView;
@@ -19,13 +20,26 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 
 
 	function toggleFavorite() {
-		if ($scope.sessionUser.id !== $scope.user.id) {
-			UserService.toggleFavorite($scope.user.id).then(function (response) {
-				console.log('response ', response);
-				$scope.isFavorite = !$scope.isFavorite;
-			}, function (error) {
-				console.log('#deuRuim ', error);
-			});
+
+		if (!$scope.isFavoriteDisabled) {
+
+			$scope.isFavoriteDisabled = true;
+
+			if ($scope.sessionUser.id !== $scope.user.id) {
+
+				UserService.toggleFavorite($scope.user.id).then(function (response) {
+				
+					console.log('response ', response);
+					$scope.isFavoriteDisabled = false;
+					$scope.isFavorite = !$scope.isFavorite;
+				
+				}, function (error) {
+					
+					$scope.isFavoriteDisabled = false;
+					console.log('#deuRuim ', error);
+				
+				});
+			}
 		}
 	}
 
@@ -41,9 +55,9 @@ function ViewProfileCtrl($scope, $window, $rootScope,
 
 				$scope.user = response.data;
 				$scope.user.profilePhoto = 'img/profile_default.svg';
-				$scope.editProfileView.hide().then(function() {
+				$scope.editProfileView.hide().then(function () {
 					$scope.isSaveChangesDisabled = false;
-				}, function(error) {
+				}, function (error) {
 					$scope.isSaveChangesDisabled = false;
 				});
 

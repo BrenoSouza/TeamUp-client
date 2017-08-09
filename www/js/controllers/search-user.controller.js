@@ -30,8 +30,6 @@ function SearchUserCtrl($scope, $state, $http, Constants) {
         $scope.searchResult = $scope.allUsers.filter(function(user) {
             return user.name.toLowerCase().includes(searchStr) 
                 || user.email.toLowerCase().includes(searchStr);
-                // || user.address.toLowerCase().includes(searchStr)
-                // || user.phone.toLowerCase().includes(searchStr);
         });
 
     }
