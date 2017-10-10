@@ -1,5 +1,18 @@
-<ion-view view-title="">
+<ion-view view-title="Perfil">
   <ion-content>
-        <h1>Teste</h1>
+    <div class="list card">
+      <div class="item item-body">
+        <img src="{{ user.profilePhoto }}" alt="Profile photo">
+        <h2><b>{{ user.name }}</b></h2>
+      </div>
+    </div>
+    <div class="title-container">
+      <h2 class="title-section">Partidas</h2>
+    </div>
+    <ul id="matches-list" class="list">
+      <li class="item">Partida 1</li>
+      <li class="item">Partida 2</li>
+      <li class="item">Partida 3</li>
+    </ul>
   </ion-content>
 </ion-view>

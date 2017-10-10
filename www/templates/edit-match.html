@@ -1,0 +1,35 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Editar partida</h1>
+        <button class="button button-clear button-primary" ng-click="editMatchView.hide()">Cancelar</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="card">
+            <label class="item item-input">
+                <input placeholder="Nome" ng-model="_editedMatch.name" type="text">
+            </label>
+            <label class="item item-input">
+                <input placeholder="address" ng-model="_editedMatch.address" type="text">
+            </label>
+            <label class="item item-input">
+                <input placeholder="Data" ng-model="_editedMatch.date" type="date">
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Esporte
+                </div>
+                <select ng-model="_editedMatch.sport">
+                    <option value="Futsal">Futsal</option>
+                    <option value="Futebol">Futebol</option>
+                    <option value="Vôlei">Vôlei</option>
+                    <option value="Natação">Natação</option>
+                    <option value="Tenis">Tenis</option>
+                </select>
+            </label>
+            <label class="item item-input">
+                <textarea placeholder="Descrição" class="match-description" ng-model="_editedMatch.description" cols="30" rows="10"></textarea>
+            </label>
+        </div>
+    </ion-content>
+    <button class="button button-float" ng-click="saveChanges()"><i class="icon ion-checkmark-round"></i></button>
+</ion-modal-view>

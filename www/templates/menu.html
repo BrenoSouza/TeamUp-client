@@ -1,50 +1,52 @@
 <ion-side-menus>
+  <ion-side-menu-content>
+
     <ion-side-menu-content>
 
-        <ion-side-menu-content>
+      <ion-nav-bar class="bar-positive">
 
-          <ion-nav-bar class="bar-positive" >
+        <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
 
-            <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
-
-            <ion-nav-buttons side="left">
-              <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()">
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()">
               </button>
-            </ion-nav-buttons>
+        </ion-nav-buttons>
 
-          </ion-nav-bar>
+      </ion-nav-bar>
 
-          <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
+      <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
 
-        </ion-side-menu-content>
+    </ion-side-menu-content>
 
-        <ion-side-menu side="left">
+    <ion-side-menu side="left">
 
-              <div class="heading-item item item-avatar side-menu darker-bg">
-                <img src="https://ngumountainlaurel.files.wordpress.com/2011/11/placeholder-profile-male.jpg?w=1075">
-                <h2 class="darker-bg"> Nome</h2>
-              </div>
+      <div class="heading-item item item-avatar side-menu darker-bg">
+        <img src="img/profile_default.svg">
+        <h2>Rafael Klynger</h2>
+      </div>
 
-              <ion-list>
-                <ion-item nav-clear menu-close ng-click="goToPerfil()">
-                  <i class="ion-home"></i>
-                  Perfil
-                </ion-item>
-                <ion-item nav-clear menu-close ng-click="">
-                  <i class="ion-person-stalker"></i>
-                  Usuários
-                </ion-item>
-                <ion-item nav-clear menu-close ng-click="">
-                  <i class="ion-ios-calendar"></i>
-                  Partidas
-                </ion-item>
-                <ion-item nav-clear menu-close ng-click="">
-                  <i class="ion-log-out"></i>
-                  Sair
-                </ion-item>
-              </ion-list>
+      <ion-list>
+        <ion-item nav-clear menu-close ng-click="goToPerfil()">
+          <i class="ion-home"></i> Perfil
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="goToFavorites()">
+          <i class="ion-person-stalker"></i> Favoritos
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="goToSearchMatch()">
+          <i class="icon ion-search"></i> Buscar Partida
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="goToSearchUser()">
+          <i class="icon ion-search"></i> Buscar Usuário
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="goToMatches()">
+          <i class="ion-ios-calendar"></i> Partidas
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="logout()">
+          <i class="ion-log-out"></i> Sair
+        </ion-item>
+      </ion-list>
 
-        </ion-side-menu>
+    </ion-side-menu>
 
   </ion-side-menu-content>
 
