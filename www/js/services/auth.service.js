@@ -5,10 +5,10 @@ function authService($http, $state, Constants, SessionService) {
 	this.login = login;
 	this.logout = logout;
 	this.signup = signup;
+	this.authenticate = authenticate;
 
 	function login(user, callback) {
-		console.log('aqui');
-		authenticate(user, callback);
+		return authenticate(user, callback);
 	};
 
 	function logout() {
@@ -33,9 +33,10 @@ function authService($http, $state, Constants, SessionService) {
 	}
 
 	function authenticate(user, callback) {
-		$http.post(Constants.LOGIN_URL, user).then(function (data) {
+
+		return $http.post(Constants.LOGIN_URL, user).then(function (data) {
 			SessionService.generateSession(data.data.user, data.data.token);
-			$state.go('app.perfil');
+			// $state.go('app.perfil');
 			callback(false);
 		}, function (response) {
 			console.log(response);

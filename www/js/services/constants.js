@@ -5,6 +5,8 @@ function Constants() {
 
     // Heroku
     constants.DOMAIN = 'https://es-project.herokuapp.com';
+    // http://150.165.80.3:8080/game
+    // constants.DOMAIN = 'http://150.165.80.3:8080';
     constants.LOGIN_URL = constants.DOMAIN + '/auth';
     constants.SIGNUP = constants.DOMAIN + '/register';
     constants.USER = constants.DOMAIN + '/user';
@@ -18,6 +20,8 @@ function Constants() {
     constants.MY_MATCHES = constants.DOMAIN + '/mygames';
     constants.FAVORITES = constants.DOMAIN + '/favoriteusers';
     constants.TOGGLE_FAVORITE = constants.DOMAIN + '/favorite';
+
+    constants.counter = 0;
 
     return constants;
 }

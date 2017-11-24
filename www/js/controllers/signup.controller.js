@@ -11,10 +11,7 @@ function SignupCtrl($scope, $state, authService, SessionService) {
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {
-        if (!SessionService.getUser()) {
-            // $scope.user = {};
-            console.log("sem sessao");
-        } else {
+        if (SessionService.getUser()) {
             $state.go('app.perfil');
         }
     });
@@ -23,6 +20,7 @@ function SignupCtrl($scope, $state, authService, SessionService) {
         console.log('usr ', $scope.user);
         authService.signup($scope.user).then(function (response) {
             $state.go('login');
+            console.log('response ', response);
         }, function(error) {
             console.log('#deuRuim ', error);
         });

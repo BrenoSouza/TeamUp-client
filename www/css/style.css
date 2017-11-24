@@ -223,7 +223,6 @@ ion-header-bar .button {
 
 }
 
-
 /*FLOAT-BUTTON*/
 .button-float {
     background: #387ef5;
@@ -292,4 +291,9 @@ ion-header-bar .button {
 .animate-show-up.ng-leave,
 .animate-show-up.ng-enter.ng-enter-active {
     opacity:1;
+}
+
+/* TESTING */
+.testing-log-list {
+    padding-bottom: 50px;
 }

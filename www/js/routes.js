@@ -19,6 +19,12 @@ angular.module('TeamUp').config(function ($stateProvider, $urlRouterProvider, $i
             controller: 'SignupCtrl'
         })
 
+        .state('testing', {
+            url: '/testing',
+            templateUrl: 'templates/testing.html',
+            controller: 'TestingCtrl'
+        })
+
         .state('app', {
             url: "/app",
             abstract: true,

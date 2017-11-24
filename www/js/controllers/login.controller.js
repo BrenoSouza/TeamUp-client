@@ -4,13 +4,10 @@ function LoginCtrl($scope, $state, authService, SessionService, $document) {
 
 	$scope.login = login;
 	$scope.goToSignup = goToSignup;
+	$scope.goToTesting = goToTesting;
 	
-	console.log($scope.loginForm);
 	$scope.$on('$ionicView.beforeEnter', function () {
-		if (!SessionService.getUser()) {
-			$scope.user = {};
-			console.log('sem sessao');
-		} else {
+		if (SessionService.getUser()) {
 			$state.go('app.matches');
 		}
 	});
@@ -25,6 +22,10 @@ function LoginCtrl($scope, $state, authService, SessionService, $document) {
 
 	function goToSignup() {
 		$state.go('signup');
+	}
+
+	function goToTesting() {
+		$state.go('testing')
 	}
 
 }

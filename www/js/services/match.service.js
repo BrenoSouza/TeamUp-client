@@ -19,7 +19,7 @@ function matchService($http, Constants, $q, SessionService) {
 
 
     function getMatch(id) {
-        return $http.get(Constants.MATCH + '/' + id.toString());;
+        return $http.get(Constants.MATCH + '/' + id.toString());
     }
 
     function matchParser(response) {
