@@ -4,9 +4,8 @@ function Constants() {
     var constants = {};
 
     // Heroku
-    constants.DOMAIN = 'https://es-project.herokuapp.com';
-    // http://150.165.80.3:8080/game
-    // constants.DOMAIN = 'http://150.165.80.3:8080';
+    // constants.DOMAIN = 'https://es-project.herokuapp.com';
+    constants.DOMAIN = 'http://192.168.25.44:8080';
     constants.LOGIN_URL = constants.DOMAIN + '/auth';
     constants.SIGNUP = constants.DOMAIN + '/register';
     constants.USER = constants.DOMAIN + '/user';

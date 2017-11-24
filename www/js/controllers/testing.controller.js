@@ -1,11 +1,15 @@
 angular.module('TeamUp').controller('TestingCtrl', TestingCtrl);
 
-function TestingCtrl($scope, $http, Constants, authService) {
+function TestingCtrl($scope, $http, Constants, authService, $window) {
     $scope.testForm = {
         method: '',
         quantRequisitions: 0
     };
     $scope.log = [];
+
+    $scope.output = '';
+
+    const a = $window.document.getElementById('download-button');
 
     IDLE = 'Log de Testes';
     CREATING_MATCHES = 'Criando Partidas';
@@ -32,7 +36,7 @@ function TestingCtrl($scope, $http, Constants, authService) {
                     date: new Date().toLocaleTimeString(),
                     description: 'something',
                     local: 'match address',
-                    name: 'Match Test',
+                    name: 'Match Test ' + i.toString(),
                     sport: 'Futsal'
                 };
 
@@ -48,15 +52,23 @@ function TestingCtrl($scope, $http, Constants, authService) {
 
             let previousTime = new Date();
             let actualTime;
+            let counter = 0;
             for (let i = 0; i < quantRequisitions; i++) {
 
-                await $http.get(Constants.MATCH + '/' + ids[i].toString()).then(function (response) {
+                $http.get(Constants.MATCH + '/' + ids[i].toString()).then(function (response) {
 
                     actualTime = new Date();
-                    const time = (actualTime - previousTime) / 1000;
+                    const time = (actualTime - previousTime);
+                    $scope.output += (time.toString() + ';\n');
                     $scope.log.push(response.data.name + ' recuperada em ' + time.toString() + 'seg.');
                     previousTime = actualTime;
 
+                    counter++;
+                    if (counter === quantRequisitions) {
+                        a.href = $window.URL.createObjectURL(new Blob([$scope.output], { type: 'text/csv' }));
+                        a.download = 'data.csv';
+                        authService.logout();
+                    }
                 });
             }
             $scope.log.push('Todas as partidas foram recuperadas');
@@ -68,6 +80,7 @@ function TestingCtrl($scope, $http, Constants, authService) {
 
             let previousTime = new Date();
             let actualTime;
+            let counter = 0;
             for (let i = 1; i <= quantRequisitions; i++) {
 
                 const match = {
@@ -80,9 +93,16 @@ function TestingCtrl($scope, $http, Constants, authService) {
 
                 $http.post(Constants.MATCH, match).then(function (response) {
                     actualTime = new Date();
-                    const time = (actualTime - previousTime) / 1000;
-                    $scope.log.push('Partida ' + i.toString() + ' criada em ' + time.toString() + 'seg.');
+                    const time = (actualTime - previousTime);
+                    $scope.output += (time.toString() + ';\n');
+                    $scope.log.push('Partida ' + i.toString() + ' criada em ' + time.toString() + ' milisecondos.');
                     previousTime = actualTime;
+                    counter++;
+                    if (counter === quantRequisitions) {
+                        a.href = $window.URL.createObjectURL(new Blob([$scope.output], { type: 'text/csv' }));
+                        a.download = 'data.csv';
+                        authService.logout();
+                    }
                 });
                 Constants.counter++;
             }
@@ -90,6 +110,9 @@ function TestingCtrl($scope, $http, Constants, authService) {
             $scope.log.push('Todas as partidas foram criadas');
             $scope.statusTesting = IDLE;
         }
+
+        // a.href = $window.URL.createObjectURL(new Blob([$scope.output], { type: 'text/csv' }));
+        // a.download = 'data.csv';
     }
 
     logUser = async function (quantUsers) {
@@ -101,7 +124,7 @@ function TestingCtrl($scope, $http, Constants, authService) {
             phone: '963852741',
             address: 'fasdfasdfjadsopf'
         };
-        await authService.authenticate(user, function (error) {
+        const result = authService.authenticate(user, function (error) {
             if (error) {
                 $http.post(Constants.SIGNUP, user).then(function (response) {
                     authService.login(user, function (error) {
@@ -116,5 +139,8 @@ function TestingCtrl($scope, $http, Constants, authService) {
 
             }
         });
+
+        await result;
+        return result;
     }
 }

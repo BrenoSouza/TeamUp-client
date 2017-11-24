@@ -13,7 +13,8 @@ function authService($http, $state, Constants, SessionService) {
 
 	function logout() {
 		SessionService.removeSession();
-		$state.go('login');
+		console.log('logout');
+		// $state.go('login');
 		// if (unauthorizedResponseError) {
 		// 	SessionService.removeSession();
 		// 	$state.go('login');
