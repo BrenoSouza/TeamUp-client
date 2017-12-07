@@ -3,7 +3,8 @@ angular.module('TeamUp').controller('TestingCtrl', TestingCtrl);
 function TestingCtrl($scope, $http, Constants, authService, $window) {
     $scope.testForm = {
         method: '',
-        quantRequisitions: 0
+        quantRequisitions: 0,
+        fileName: ''
     };
     $scope.log = [];
 
@@ -66,7 +67,7 @@ function TestingCtrl($scope, $http, Constants, authService, $window) {
                     counter++;
                     if (counter === quantRequisitions) {
                         a.href = $window.URL.createObjectURL(new Blob([$scope.output], { type: 'text/csv' }));
-                        a.download = 'data.csv';
+                        a.download = $scope.testForm.fileName + '.csv';
                         authService.logout();
                     }
                 });
@@ -100,7 +101,7 @@ function TestingCtrl($scope, $http, Constants, authService, $window) {
                     counter++;
                     if (counter === quantRequisitions) {
                         a.href = $window.URL.createObjectURL(new Blob([$scope.output], { type: 'text/csv' }));
-                        a.download = 'data.csv';
+                        a.download = $scope.testForm.fileName + '.csv';
                         authService.logout();
                     }
                 });
@@ -119,7 +120,7 @@ function TestingCtrl($scope, $http, Constants, authService, $window) {
 
         const user = {
             name: 'test user',
-            email: 'testemail@gmail',
+            email: 'testemail2@gmail',
             password: '123456789',
             phone: '963852741',
             address: 'fasdfasdfjadsopf'

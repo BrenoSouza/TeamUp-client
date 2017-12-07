@@ -5,7 +5,7 @@ function Constants() {
 
     // Heroku
     // constants.DOMAIN = 'https://es-project.herokuapp.com';
-    constants.DOMAIN = 'http://192.168.25.44:8080';
+    constants.DOMAIN = 'http://192.168.25.45:8080';
     constants.LOGIN_URL = constants.DOMAIN + '/auth';
     constants.SIGNUP = constants.DOMAIN + '/register';
     constants.USER = constants.DOMAIN + '/user';

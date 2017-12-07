@@ -9,6 +9,10 @@
                 <span class="input-label">Quantidade de Requisições</span>
                 <input type="number" ng-model="testForm.quantRequisitions" placeholder="100">
             </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Nome do arquivo</span>
+                <input type="text" ng-model="testForm.fileName">
+            </label>
         </form>
         <button class="button button-block" ng-click="makeTest()">Iniciar</button>
         <a id="download-button" class="button button-warn button-block">Download</a>
